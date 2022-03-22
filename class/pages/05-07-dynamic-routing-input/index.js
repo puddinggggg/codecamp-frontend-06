@@ -31,7 +31,7 @@ export default function GraphqlMutationPage() {
       console.log(result.data.createBoard.message);
       alert("게시물 등록 성공")
       alert("페이지 이동")
-      router.push(`/05-08-dynamic-routed-input/ ${result.data.createBoard.number}`)
+      router.push(`/05-08-dynamic-routed-input/${result.data.createBoard.number}`)
       
 
     
