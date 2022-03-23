@@ -35,7 +35,7 @@ import {
               <Profile src="/images/profile.png" />
               <Info>
                 <Writer>{props.data?.fetchBoard?.writer}</Writer>
-                <UploadDate>Date : {props.data?.fetchBoard?.createdAt}</UploadDate>
+                <UploadDate>Date : {props.data?.fetchBoard?.createdAt.substr(0,10)}</UploadDate>
               </Info>
             </ProfileWrapper>
               <IconWrapper>
