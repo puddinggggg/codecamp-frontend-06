@@ -6,7 +6,7 @@ import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
 import { useRouter } from "next/router";
 export default function BoardWrite(props) {
   const router = useRouter();
-  const [isActive, setIsActive] = useState("false");
+  const [isActive, setIsActive] = useState("");
   const [myWriter, setMyWriter] = useState("");
   const [myTitle, setMyTitle] = useState("");
   const [myContents, setMyContents] = useState("");
@@ -19,7 +19,7 @@ export default function BoardWrite(props) {
     const result = await updateBoard({
         variables: { number: Number(router.query.mynumber) , writer: myWriter, title: myTitle, contents: myContents }})
         alert("게시물 수정 성공")
-        router.push('/08-05-boards/${result.query.mynumber}');
+        router.push(`/08-05-boards/${result.query.mynumber}`);
     
   }
 
@@ -32,7 +32,7 @@ export default function BoardWrite(props) {
     // console.log(result.data.createBoard.message);
     // setData(result.data.createBoard.message);
     alert("게시물 등록 성공")
-    router.push('/08-05-boards/${result.data.createBoard.number}');
+    router.push(`/08-05-boards/${result.data.createBoard.number}`);
   };
 
   const onChangeWriter = (event) => {
