@@ -29,6 +29,7 @@ export interface IBoardWriteUIProps {
     onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void
     onChangeTitle: (event: ChangeEvent<HTMLInputElement>) => void
     onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void
+    onChangeYoutube: (event: ChangeEvent<HTMLInputElement>) => void
     onClickSubmit: () => void
     onClickUpdate: () => void
     isActive: boolean

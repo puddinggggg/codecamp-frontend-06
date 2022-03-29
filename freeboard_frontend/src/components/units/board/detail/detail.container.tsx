@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useState, ChangeEvent } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import BoardDetailUI from "./detail.presenter";
+
 import {
   FETCH_BOARD,
   DELETE_BOARD,
@@ -22,7 +23,12 @@ export default function BoardDetail(props: IBoardDetailProps) {
   const [commentWriter, setCommentWriter] = useState("");
   const [commentPassword, setCommentPassword] = useState("");
   const [commentContents, setCommentContents] = useState("");
-  const [commentRating, setCommentRating] = useState(0);
+
+  const [rateValue, setRateValue] = useState(0);
+
+  const handleChange = (value: number) => {
+    setRateValue(value);
+  };
 
   const [deleteBoard] = useMutation(DELETE_BOARD);
   const [createComment] = useMutation(CREATE_COMMENT);
@@ -35,9 +41,6 @@ export default function BoardDetail(props: IBoardDetailProps) {
   };
   const onChangeCommentContents = (event: ChangeEvent<HTMLInputElement>) => {
     setCommentContents(event.target.value);
-  };
-  const onChangeCommentRating = (event: ChangeEvent<HTMLInputElement>) => {
-    setCommentRating(Number(event.target.value));
   };
 
   const onClickCommentSubmit = async () => {
@@ -66,11 +69,19 @@ export default function BoardDetail(props: IBoardDetailProps) {
               writer: commentWriter,
               password: commentPassword,
               contents: commentContents,
-              rating: commentRating,
+              rating: rateValue,
             },
           },
+          refetchQueries: [
+            {
+              query: FETCH_BOARD_COMMENTS,
+              variables: { boardId: router.query.boardId },
+            },
+            { query: FETCH_BOARD_COMMENTS },
+          ],
         });
         alert("댓글 등록에 성공하였습니다.");
+        setRateValue(0);
       } catch (error: any) {
         alert(error.message);
       }
@@ -92,7 +103,6 @@ export default function BoardDetail(props: IBoardDetailProps) {
   };
   return (
     <BoardDetailUI
-      commentData={commentData}
       data={data}
       onClickDelete={onClickDelete}
       onClickBoardList={onClickBoardList}
@@ -100,8 +110,10 @@ export default function BoardDetail(props: IBoardDetailProps) {
       onChangeCommentWriter={onChangeCommentWriter}
       onChangeCommentPassword={onChangeCommentPassword}
       onChangeCommentContents={onChangeCommentContents}
-      onChangeCommentRating={onChangeCommentRating}
+      commentData={commentData}
       onClickCommentSubmit={onClickCommentSubmit}
+      handleChange={handleChange}
+      value={rateValue}
     />
   );
 }

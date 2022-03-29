@@ -15,6 +15,7 @@ export default function WriteBoard(props: IWriteBoardProps) {
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
+  const [youtube, setYouTube] = useState("");
 
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -76,6 +77,9 @@ export default function WriteBoard(props: IWriteBoardProps) {
       setIsActive(false);
     }
   };
+  const onChangeYoutube = (event: ChangeEvent<HTMLInputElement>) => {
+    setYouTube(event.target.value);
+  };
 
   const onClickSubmit = async () => {
     if (writer === "") {
@@ -107,6 +111,7 @@ export default function WriteBoard(props: IWriteBoardProps) {
               password: password,
               title: title,
               contents: contents,
+              youtubeUrl: youtube,
             },
           },
         });
@@ -152,6 +157,7 @@ export default function WriteBoard(props: IWriteBoardProps) {
       onChangePassword={onChangePassword}
       onChangeTitle={onChangeTitle}
       onChangeContents={onChangeContents}
+      onChangeYoutube={onChangeYoutube}
       onClickSubmit={onClickSubmit}
       onClickUpdate={onClickUpdate}
       isEdit={props.isEdit}

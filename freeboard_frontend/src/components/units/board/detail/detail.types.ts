@@ -7,16 +7,17 @@ export interface IBoardDetailProps {
 
 // 프레젠터
 export interface IBoardWriteUIProps {
-    commentData: any
     data: any
-    onChangeCommentWriter: (event: ChangeEvent<HTMLInputElement>) => void
-    onChangeCommentPassword: (event: ChangeEvent<HTMLInputElement>) => void
-    onChangeCommentContents: (event: ChangeEvent<HTMLInputElement>) => void
-    onChangeCommentRating: (event: ChangeEvent<HTMLInputElement>) => void
     onClickBoardList: () => void
     onClickBoardEdit: () => void
     onClickDelete: () => void
+    onChangeCommentWriter: (event: ChangeEvent<HTMLInputElement>) => void
+    onChangeCommentPassword: (event: ChangeEvent<HTMLInputElement>) => void
+    onChangeCommentContents: (event: ChangeEvent<HTMLInputElement>) => void
     onClickCommentSubmit: () => void
+    handleChange: (value: number) => void
+    value: number
+    commentData: any
 
 }
 

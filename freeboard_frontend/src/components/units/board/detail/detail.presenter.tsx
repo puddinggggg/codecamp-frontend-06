@@ -1,7 +1,13 @@
 import * as S from "./detail.styles";
 import { IBoardWriteUIProps } from "./detail.types";
+import ReactPlayer from "react-player";
+import { Rate } from "antd";
 
 export default function BoardDetailUI(props: IBoardWriteUIProps) {
+  // const commentClickAlert = (event: MouseEvent<HTMLDivElement>) => {
+  //   alert(event.currentTarget.id + "님의 글입니다.");
+  // };
+
   return (
     <S.Wrapper>
       <S.BoardWrapper>
@@ -24,7 +30,13 @@ export default function BoardDetailUI(props: IBoardWriteUIProps) {
           <S.Title>{props.data?.fetchBoard?.title}</S.Title>
           <S.Image src="/images/mainimg.jpg" />
           <S.Contents>{props.data?.fetchBoard?.contents}</S.Contents>
-          <S.Youtube>youtube</S.Youtube>
+          <S.Youtube>
+            <ReactPlayer
+              url={String(props.data?.fetchBoard?.youtubeUrl)}
+              width={486}
+              height={240}
+            />
+          </S.Youtube>
           <S.LikeWrapper>
             <S.LikeInnerWrapper>
               <S.LikeImg src="/images/like.png" />
@@ -58,21 +70,14 @@ export default function BoardDetailUI(props: IBoardWriteUIProps) {
             placeholder="비밀번호"
             onChange={props.onChangeCommentPassword}
           />
-          <S.CommentInputStar src="/images/grayStar.png" />
-          <S.CommentInputStar src="/images/grayStar.png" />
-          <S.CommentInputStar src="/images/grayStar.png" />
-          <S.CommentInputStar src="/images/grayStar.png" />
-          <S.CommentInputStar src="/images/grayStar.png" />
-          <S.CommentRate
-            type="number"
-            placeholder="별점 임시"
-            onChange={props.onChangeCommentRating}
-          />
+
+          <Rate onChange={props.handleChange} value={props.value} />
         </S.CommentInputWrapper>
         <S.CommentContentsWrapper>
           <S.CommentContents
             placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
             onChange={props.onChangeCommentContents}
+            maxLength={100}
           />
           <S.CommentContentsBottomWrapper>
             <S.CommentLengthCount>0/100</S.CommentLengthCount>
@@ -84,18 +89,19 @@ export default function BoardDetailUI(props: IBoardWriteUIProps) {
       </S.CommentWrapper>
       <S.CommentLists>
         {props.commentData?.fetchBoardComments.map((el: any) => (
-          <S.CommentList key={el._id}>
+          <S.CommentList
+            key={el._id}
+            // id={el.writer}
+            // onClick={commentClickAlert}
+          >
             <S.Profile src="/images/profile.png" />
             <S.commentListWriter>{el.writer}</S.commentListWriter>
             <S.commentListContents>{el.contents}</S.commentListContents>
-            <S.CommentInputStar src="/images/grayStar.png" />
-            <S.CommentInputStar src="/images/grayStar.png" />
-            <S.CommentInputStar src="/images/grayStar.png" />
-            <S.CommentInputStar src="/images/grayStar.png" />
-            <S.CommentInputStar src="/images/grayStar.png" />
+
+            <Rate disabled value={el.rating} />
             <S.CommentUpdateBtn src="/images/commentUpdate.png"></S.CommentUpdateBtn>
             <S.CommentDeleteBtn src="/images/commentDelete.png"></S.CommentDeleteBtn>
-            <S.CommentDate>{el.createdAt}</S.CommentDate>
+            <S.CommentDate>{el.createdAt.substr(0, 10)}</S.CommentDate>
           </S.CommentList>
         ))}
       </S.CommentLists>

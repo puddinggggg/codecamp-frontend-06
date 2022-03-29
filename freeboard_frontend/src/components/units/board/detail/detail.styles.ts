@@ -173,8 +173,7 @@ export const CommentTitleTxt = styled.span`
 export const CommentInputWrapper = styled.div`
 `;
 export const CommentInput = styled.input``;
-export const CommentInputStar = styled.img``;
-export const CommentRate = styled.input``;
+
 export const CommentContentsWrapper = styled.div``;
 export const CommentContents = styled.input``;
 export const CommentContentsBottomWrapper = styled.div`
@@ -182,7 +181,7 @@ display:flex;
 flex-direction: row;`;
 export const CommentLengthCount = styled.div`
 width:1148px;
-height:52px`;
+height:52px;`;
 export const CommentSubmitBtn = styled.button`
 background: black;
 color: white;

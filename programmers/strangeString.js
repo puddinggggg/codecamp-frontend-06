@@ -8,7 +8,7 @@
 
 function solution(s) {
   // let lower = .toLowerCase();
-  let anwser = "";
+
   let strange = [];
   let splited = s.split(" ");
   for (i = 0; i < splited.length; i++) {
@@ -23,4 +23,27 @@ function solution(s) {
     strange.push(txt);
   }
   return strange.join(" ");
+}
+// function solution(s) {
+// let answer = "";
+// let idx = 0;
+// for(let i =0; i<s.length;i++){
+//   if(s[i]===" "){
+//     answer += s[i];
+//     idx=0;
+//   } else{
+//     answer += idx%2 ===1 ?s[i].toLowerCase()
+//     : s[i].toUpperCase();
+//   }
+// }
+// }
+
+
+function solution(s) {
+ const answer = s.split("").map( str=>())
+
+ 
+  
+  
+  return answer;
 }
