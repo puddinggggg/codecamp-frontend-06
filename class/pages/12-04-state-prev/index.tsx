@@ -2,11 +2,10 @@ import { useState } from "react";
 export default function StatePrevPage() {
   const [count, setCount] = useState(0);
   const onClickCount = () => {
-    setCount((prev) => prev + 1);
-    setCount((prev) => prev + 1);
-    setCount((prev) => prev + 1);
-    setCount((prev) => prev + 1);
-    setCount((prev) => prev + 1);
+    setCount(count + 1);
+    setCount(count + 3);
+    setCount(count + 5);
+    setCount(count + 7);
   };
   return (
     <div>

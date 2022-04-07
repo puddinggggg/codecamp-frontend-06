@@ -22,7 +22,10 @@ export default function CommentWriteUI(props: ICommentWriteUIProps) {
             onChange={props.onChangeCommentPassword}
           />
 
-          <Rate onChange={props.handleChange} value={props.value} />
+          <Rate
+            onChange={props.handleChange}
+            //  value={props.value}
+          />
         </S.CommentInputWrapper>
         <S.CommentContentsWrapper>
           <S.CommentContents

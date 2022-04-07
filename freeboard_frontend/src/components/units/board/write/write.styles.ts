@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import {ISubmitBtnProps} from "./write.types"
+import { ISubmitBtnProps } from "./write.types"
 // styled emotion 사용시 선언 첫 글자는 반드시 대문자
 export const OutWrapper = styled.div`
 display:flex;
@@ -109,6 +109,8 @@ export const AddressDetailInput = styled.input`
   box-sizing: border-box;
   margin-top: 16px;
   margin-bottom: 30px;
+  padding: 14px 16px;
+
 `;
 
 export const YoutubeWrapper = styled.div`
@@ -188,5 +190,5 @@ line-height: 24px;
 padding: 0 8px;
 border: none;
 margin-top: 80px;
-background-color: ${(props : ISubmitBtnProps) => (props.isActive ? "yellow" : "gray")}
+background-color: ${(props: ISubmitBtnProps) => (props.isActive ? "yellow" : "gray")}
 `;

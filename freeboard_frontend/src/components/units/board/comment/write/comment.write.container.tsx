@@ -31,7 +31,7 @@ export default function CommentWrite() {
   const onChangeCommentPassword = (event: ChangeEvent<HTMLInputElement>) => {
     setCommentPassword(event.target.value);
   };
-  const onChangeCommentContents = (event: ChangeEvent<HTMLInputElement>) => {
+  const onChangeCommentContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setCommentContents(event.target.value);
   };
 
@@ -88,7 +88,7 @@ export default function CommentWrite() {
         onClickCommentSubmit={onClickCommentSubmit}
         handleChange={handleChange}
         commentContents={commentContents}
-        value={rateValue}
+        // value={rateValue}
       />
     </div>
   );

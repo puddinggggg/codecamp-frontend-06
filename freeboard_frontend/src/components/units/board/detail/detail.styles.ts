@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-
+import ReactPlayer from "react-player";
 export const Wrapper = styled.div`
   width: 1200px;
-  margin: 100px;
+  margin: 50px auto;
 `;
 
 export const BoardWrapper = styled.div`
@@ -66,11 +66,12 @@ export const IconWrapper = styled.div`
 export const Link = styled.img`
   width: 27px;
   height: 14px;
-  margin-right: 30px;
-`;
+  `;
 export const Location = styled.img`
   width: 19px;
   height: 27px;
+  margin: 0 20px;
+  
 `;
 
 export const Body = styled.div`
@@ -100,6 +101,9 @@ export const Youtube = styled.div`
   height: 240px;
   border: 1px solid #bdbdbd;
   margin: 0 auto 160px;
+  `;
+export const YoutubePlayer = styled(ReactPlayer)`
+
 `;
 
 export const LikeWrapper = styled.div`
@@ -163,41 +167,3 @@ export const Button = styled.button`
     border-color: white;
   } */
 `;
-export const CommentWrapper = styled.div`
-`;
-export const CommentTitleWrapper = styled.div`
-`;
-export const CommentTitleImg = styled.img``;
-export const CommentTitleTxt = styled.span`
-`;
-export const CommentInputWrapper = styled.div`
-`;
-export const CommentInput = styled.input``;
-
-export const CommentContentsWrapper = styled.div``;
-export const CommentContents = styled.input``;
-export const CommentContentsBottomWrapper = styled.div`
-display:flex;
-flex-direction: row;`;
-export const CommentLengthCount = styled.div`
-width:1148px;
-height:52px;`;
-export const CommentSubmitBtn = styled.button`
-background: black;
-color: white;
-width:91px;
-height: 52px;
-text-align: center;
-line-height:52px;`;
-
-export const CommentLists = styled.div`
-display:flex;
-flex-direction: column;`;
-export const CommentList = styled.div`
-display:flex;
-`;
-export const commentListWriter = styled.div``;
-export const commentListContents = styled.div``;
-export const CommentUpdateBtn = styled.img``;
-export const CommentDeleteBtn = styled.img``;
-export const CommentDate = styled.div``;

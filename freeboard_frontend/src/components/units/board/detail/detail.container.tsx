@@ -1,96 +1,47 @@
 import { useRouter } from "next/router";
-import { useState, ChangeEvent } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import BoardDetailUI from "./detail.presenter";
-
 import {
   FETCH_BOARD,
   DELETE_BOARD,
-  CREATE_COMMENT,
-  FETCH_BOARD_COMMENTS,
+  LIKE_BOARD,
+  DISLIKE_BOARD,
 } from "./detail.queries";
-import { IBoardDetailProps } from "./detail.types";
+import {
+  IMutation,
+  IMutationDeleteBoardArgs,
+  IMutationDislikeBoardArgs,
+  IMutationLikeBoardArgs,
+  IQuery,
+  IQueryFetchBoardArgs,
+} from "../../../../commons/types/generated/types";
 
-export default function BoardDetail(props: IBoardDetailProps) {
+export default function BoardDetail() {
   const router = useRouter();
-  const { data } = useQuery(FETCH_BOARD, {
-    variables: { boardId: router.query.boardId },
-  });
-  const { data: commentData } = useQuery(FETCH_BOARD_COMMENTS, {
-    variables: { boardId: router.query.boardId },
-  });
+  const [deleteBoard] = useMutation<
+    Pick<IMutation, "deleteBoard">,
+    IMutationDeleteBoardArgs
+  >(DELETE_BOARD);
+  const [likeBoard] = useMutation<
+    Pick<IMutation, "likeBoard">,
+    IMutationLikeBoardArgs
+  >(LIKE_BOARD);
 
-  const [commentWriter, setCommentWriter] = useState("");
-  const [commentPassword, setCommentPassword] = useState("");
-  const [commentContents, setCommentContents] = useState("");
-
-  const [rateValue, setRateValue] = useState(0);
-
-  const handleChange = (value: number) => {
-    setRateValue(value);
-  };
-
-  const [deleteBoard] = useMutation(DELETE_BOARD);
-  const [createComment] = useMutation(CREATE_COMMENT);
-
-  const onChangeCommentWriter = (event: ChangeEvent<HTMLInputElement>) => {
-    setCommentWriter(event.target.value);
-  };
-  const onChangeCommentPassword = (event: ChangeEvent<HTMLInputElement>) => {
-    setCommentPassword(event.target.value);
-  };
-  const onChangeCommentContents = (event: ChangeEvent<HTMLInputElement>) => {
-    setCommentContents(event.target.value);
-  };
-
-  const onClickCommentSubmit = async () => {
-    if (commentWriter === "") {
-      alert("댓글 작성자를 입력해주세요.");
-      return;
+  const [dislikeBoard] = useMutation<
+    Pick<IMutation, "dislikeBoard">,
+    IMutationDislikeBoardArgs
+  >(DISLIKE_BOARD);
+  const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
+    FETCH_BOARD,
+    {
+      variables: { boardId: String(router.query.boardId) },
     }
-    if (commentPassword === "") {
-      alert("댓글 비밀번호를 입력해주세요.");
-      return;
-    }
-    if (commentContents === "") {
-      alert("댓글 내용을 입력해주세요.");
-      return;
-    }
-    if (
-      commentWriter !== "" &&
-      commentPassword !== "" &&
-      commentContents !== ""
-    ) {
-      try {
-        await createComment({
-          variables: {
-            boardId: router.query.boardId,
-            createBoardCommentInput: {
-              writer: commentWriter,
-              password: commentPassword,
-              contents: commentContents,
-              rating: rateValue,
-            },
-          },
-          refetchQueries: [
-            {
-              query: FETCH_BOARD_COMMENTS,
-              variables: { boardId: router.query.boardId },
-            },
-            { query: FETCH_BOARD_COMMENTS },
-          ],
-        });
-        alert("댓글 등록에 성공하였습니다.");
-        setRateValue(0);
-      } catch (error: any) {
-        alert(error.message);
-      }
-    }
-  };
+  );
+
   // 댓글 id router.query._id로 가져옴
   const onClickDelete = () => {
     deleteBoard({
-      variables: { boardId: router.query.boardId },
+      variables: { boardId: String(router.query.boardId) },
     });
     alert("게시글 삭제 완료");
     router.push("/boards");
@@ -101,19 +52,32 @@ export default function BoardDetail(props: IBoardDetailProps) {
   const onClickBoardEdit = () => {
     router.push(`/boards/${router.query.boardId}/edit`);
   };
+  const onClickLike = () => {
+    likeBoard({
+      variables: { boardId: String(router.query.boardId) },
+      refetchQueries: [
+        { query: FETCH_BOARD, variables: { boardId: router.query.boardId } },
+      ],
+    });
+  };
+
+  const onClickDislike = () => {
+    dislikeBoard({
+      variables: { boardId: String(router.query.boardId) },
+      refetchQueries: [
+        { query: FETCH_BOARD, variables: { boardId: router.query.boardId } },
+      ],
+    });
+  };
+
   return (
     <BoardDetailUI
       data={data}
       onClickDelete={onClickDelete}
       onClickBoardList={onClickBoardList}
       onClickBoardEdit={onClickBoardEdit}
-      onChangeCommentWriter={onChangeCommentWriter}
-      onChangeCommentPassword={onChangeCommentPassword}
-      onChangeCommentContents={onChangeCommentContents}
-      commentData={commentData}
-      onClickCommentSubmit={onClickCommentSubmit}
-      handleChange={handleChange}
-      value={rateValue}
+      onClickLike={onClickLike}
+      onClickDislike={onClickDislike}
     />
   );
 }

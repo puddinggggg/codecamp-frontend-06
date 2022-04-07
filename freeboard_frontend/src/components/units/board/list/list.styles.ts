@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
   width: 1200px;
+  margin: 100px auto;
 `;
 export const BestWrapper = styled.div`
   display: flex;
@@ -201,8 +202,40 @@ export const DateColumn = styled.div`
   text-align: center;
 `;
 
+export const PaginationWrapper = styled.div`
+display:flex;
+justify-content: center;
+padding: 10px;
+`;
+
+export const PageArrow = styled.span`
+  cursor: pointer;
+  font-size:20px;
+  line-height:25px;
+  `;
+
+export const Pages = styled.span`
+  cursor: pointer;
+  
+  color: ${(props) => (props.current === true ? "white" : "black")};
+  background-color: ${(props) => (props.current !== true ? "white" : "gray")};
+  font-size:15px;
+  margin: 0 5px;
+`;
+
+
+
 export const Footer = styled.div``;
 
 export const Btn = styled.button`
   float: right;
+  background: #dbdbdb;
+  border: none;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: black;
+  padding: 14px 16px;
 `;

@@ -92,7 +92,7 @@ export default function MapBoardPage(props: IMapBoardPageProps) {
         </S.SearchWrapper>
         <S.ListWrapper>
           <S.HeaderRow>
-            <S.HeaderNumberColumn>번호</S.HeaderNumberColumn>
+            <S.HeaderNumberColumn>ID</S.HeaderNumberColumn>
             <S.HeaderTitleColumn>제목</S.HeaderTitleColumn>
             <S.HeaderWriterColumn>작성자</S.HeaderWriterColumn>
             <S.HeaderDateColumn>작성일</S.HeaderDateColumn>
@@ -100,7 +100,9 @@ export default function MapBoardPage(props: IMapBoardPageProps) {
           {props.data?.fetchBoards.map((el: any, index: number) => (
             // el index types 파일에 작성하는 방법 확인 필요
             <S.Row key={el._id}>
-              <S.NumberColumn>{10 - index} </S.NumberColumn>
+              <S.NumberColumn>
+                {el._id.substr(el._id.length - 4, el._id.length)}{" "}
+              </S.NumberColumn>
               <S.TitleColumn id={el._id} onClick={props.onClickBoardDetail}>
                 {el.title}
               </S.TitleColumn>
@@ -109,6 +111,31 @@ export default function MapBoardPage(props: IMapBoardPageProps) {
             </S.Row>
           ))}
         </S.ListWrapper>
+        <S.PaginationWrapper>
+          {props.startPage !== 1 && (
+            <S.PageArrow onClick={props.onClickPrevPage}>＜</S.PageArrow>
+          )}
+
+          {new Array(10).fill(1).map(
+            (_, index) =>
+              index + props.startPage <= props.lastPage && (
+                <S.Pages
+                  key={index + props.startPage}
+                  current={index + props.startPage === props.current}
+                  onClick={props.onClickPage}
+                  id={String(index + props.startPage)}
+                >
+                  {` `}
+                  {index + props.startPage}
+                  {` `}
+                </S.Pages>
+              )
+          )}
+          {` `}
+          {props.lastPage - props.startPage >= 10 && (
+            <S.PageArrow onClick={props.onClickNextPage}>＞</S.PageArrow>
+          )}
+        </S.PaginationWrapper>
         <S.Footer>
           <S.Btn onClick={props.onClickBoardNew}>게시물 등록하기</S.Btn>
         </S.Footer>

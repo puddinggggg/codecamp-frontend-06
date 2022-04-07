@@ -1,23 +1,15 @@
-import { ChangeEvent } from "react"
-// 컨테이너
-export interface IBoardDetailProps {
-    data: any
-}
+import { IQuery } from "../../../../commons/types/generated/types";
 
 
 // 프레젠터
 export interface IBoardWriteUIProps {
-    data: any
-    onClickBoardList: () => void
-    onClickBoardEdit: () => void
-    onClickDelete: () => void
-    onChangeCommentWriter: (event: ChangeEvent<HTMLInputElement>) => void
-    onChangeCommentPassword: (event: ChangeEvent<HTMLInputElement>) => void
-    onChangeCommentContents: (event: ChangeEvent<HTMLInputElement>) => void
-    onClickCommentSubmit: () => void
-    handleChange: (value: number) => void
-    value: number
-    commentData: any
+    data?: Pick<IQuery, "fetchBoard">;
+    onClickBoardList: () => void;
+    onClickBoardEdit: () => void;
+    onClickDelete: () => void;
+    onClickLike: () => void;
+    onClickDislike: () => void;
+
 
 }
 
