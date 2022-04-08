@@ -33,7 +33,15 @@ export default function BoardDetailUI(props: IBoardWriteUIProps) {
         </S.Header>
         <S.Body>
           <S.Title>{props.data?.fetchBoard?.title}</S.Title>
-          <S.Image src="/images/mainimg.jpg" />
+          {/* <S.Image src="/images/mainimg.jpg" /> */}
+          {props.data?.fetchBoard?.images ? (
+            <S.Image
+              src={`https://storage.googleapis.com/${props.data?.fetchBoard?.images[0]}`}
+            />
+          ) : (
+            <S.Image src="/images/mainimg.jpg" />
+          )}
+
           <S.Contents>{props.data?.fetchBoard?.contents}</S.Contents>
           <S.Youtube>
             <S.YoutubePlayer

@@ -45,10 +45,6 @@ export default function GraphqlMutationPage() {
   const [createBoard] = useMutation(CREATE_BOARD);
 
   const callGraphqlApi = async () => {
-    // const result = await axios.get("https://koreanjson.com/posts/1") // rest-api 방식!!
-    // const result = await axios.get("https://koreanjson.com/users/1")
-    // const result = await axios.get("https://koreanjson.com/products/1")
-
     const result = await createBoard({
       variables: {
         createBoardInput: {

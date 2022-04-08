@@ -23,6 +23,9 @@ export default function LayoutNavigation() {
   function goBoards() {
     router.push("/boards");
   }
+  function goFirebase() {
+    router.push("/firebase");
+  }
   // function goMarket(){
   //   router.push("/market");
   // }
@@ -37,6 +40,8 @@ export default function LayoutNavigation() {
     <div>
       <Wrapper>
         <Menu onClick={goBoards}>게시판</Menu>
+        <MenuBar> ｜ </MenuBar>
+        <Menu onClick={goFirebase}>파이어베이스</Menu>
         <MenuBar> ｜ </MenuBar>
         <Menu>장터</Menu>
         <MenuBar> ｜ </MenuBar>

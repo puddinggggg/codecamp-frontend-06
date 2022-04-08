@@ -137,7 +137,17 @@ export const ImgInnerWrapper = styled.div`
   display: flex;
   flex-direction: row;
 `;
-export const Imgs = styled.div`
+export const Imgs = styled.img`
+  width: 78px;
+  height: 78px;
+  /* background: #bdbdbd; */
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+  margin-right: 24px;
+`;
+export const DefaultImg = styled.div`
   width: 78px;
   height: 78px;
   background: #bdbdbd;
@@ -147,6 +157,13 @@ export const Imgs = styled.div`
   align-items: center;
   margin-right: 24px;
 `;
+
+export const UploadedImg = styled.img`
+  width: 100%;
+  height: 100%;
+  
+`;
+
 export const Plus = styled.div`
   color: #4F4F4F;
   font-size: 20px;

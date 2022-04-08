@@ -238,4 +238,5 @@ export const Btn = styled.button`
   text-align: center;
   color: black;
   padding: 14px 16px;
+  cursor: pointer;
 `;

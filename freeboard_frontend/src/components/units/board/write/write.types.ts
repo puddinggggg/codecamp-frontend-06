@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent } from 'react'
+import { ChangeEvent } from 'react'
 import { IQuery } from "../../../../commons/types/generated/types";
 // 컨테이너
 export interface IWriteBoardProps {
@@ -33,19 +33,26 @@ export interface IBoardWriteUIProps {
     passwordError: string
     titleError: string
     contentsError: string
-    onChangeInputs: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+    onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void
+    onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void
+    onChangeTitle: (event: ChangeEvent<HTMLInputElement>) => void
+    onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void
+    onChangeYoutube: (event: ChangeEvent<HTMLInputElement>) => void
     onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void
     onClickAddressCode: () => void
     afterAddressSearch: (data: any) => void
-    onClickSubmit: (event: MouseEvent<HTMLButtonElement>) => void
+    onClickSubmit: () => void
     onClickUpdate: () => void
     isEdit: boolean
     data?: Pick<IQuery, "fetchBoard">
     isVisible: boolean
-
-    // address: string
-    // addressDetail: string
-    // zipcode: string
+    address: string
+    addressDetail: string
+    zipcode: string
+    onChangeFile: (event: ChangeEvent<HTMLInputElement>) => void
+    onClickImage: () => void;
+    fileRef: any
+    imageUrl: string | undefined
 }
 
 

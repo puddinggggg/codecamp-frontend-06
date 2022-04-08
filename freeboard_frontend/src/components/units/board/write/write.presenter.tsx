@@ -4,6 +4,7 @@ import DaumPostcode from "react-daum-postcode";
 import { Modal } from "antd";
 
 export default function BoardWriteUI(props: IBoardWriteUIProps) {
+  console.log(props.data?.fetchBoard.writer);
   return (
     <div>
       {props.isVisible && (
@@ -20,50 +21,45 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
               <S.NamePassInput
                 type="text"
                 placeholder="이름을 적어주세요."
-                onChange={props.onChangeInputs}
-                id="writer"
+                onChange={props.onChangeWriter}
                 defaultValue={props.data?.fetchBoard.writer || ""}
                 readOnly={!!props.data?.fetchBoard.writer}
               />
-              <S.Error id="writer">{props.writerError}</S.Error>
+              <S.Error>{props.writerError}</S.Error>
             </S.NameWrapper>
             <S.PassWrapper>
               <S.MenuTxt>비밀번호</S.MenuTxt>
               <S.NamePassInput
                 type="password"
-                id="password"
                 placeholder="비밀번호를 입력해주세요."
-                onChange={props.onChangeInputs}
+                onChange={props.onChangePassword}
               />
-              <S.Error id="password">{props.passwordError}</S.Error>
+              <S.Error>{props.passwordError}</S.Error>
             </S.PassWrapper>
           </S.NamePassWrapper>
           <S.TitleWrapper>
             <S.MenuTxt>제목</S.MenuTxt>
             <S.TitleInput
               type="text"
-              id="title"
               placeholder="제목을 작성해주세요."
-              onChange={props.onChangeInputs}
+              onChange={props.onChangeTitle}
               defaultValue={props.data?.fetchBoard.title}
             />
-            <S.Error id="title">{props.titleError}</S.Error>
+            <S.Error>{props.titleError}</S.Error>
           </S.TitleWrapper>
           <S.ContentWrapper>
             <S.MenuTxt>내용</S.MenuTxt>
             <S.ContentInput
-              id="contents"
               placeholder="내용을 작성해주세요."
-              onChange={props.onChangeInputs}
+              onChange={props.onChangeContents}
               defaultValue={props.data?.fetchBoard.contents}
             />
-            <S.Error id="contents">{props.contentsError}</S.Error>
+            <S.Error>{props.contentsError}</S.Error>
           </S.ContentWrapper>
           <S.AddressWrapper>
             <S.MenuTxt>주소</S.MenuTxt>
             <S.AddressSearchWrapper>
               <S.AddressInput
-                id="zipcode"
                 placeholder="07250"
                 readOnly
                 value={
@@ -77,7 +73,6 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
               </S.AddressBtn>
             </S.AddressSearchWrapper>
             <S.AddressDetailInput
-              id="address"
               readOnly
               value={
                 props.address ||
@@ -86,7 +81,6 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
               }
             />
             <S.AddressDetailInput
-              id="addressDetail"
               onChange={props.onChangeAddressDetail}
               defaultValue={
                 props.data?.fetchBoard.boardAddress?.addressDetail || ""
@@ -97,15 +91,38 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             <S.MenuTxt>유튜브</S.MenuTxt>
             <S.YoutubeInput
               type="text"
-              id="youtubeUrl"
-              onChange={props.onChangeInputs}
+              onChange={props.onChangeYoutube}
               placeholder="링크를 입력해주세요."
               defaultValue={props.data?.fetchBoard.youtubeUrl || ""}
             />
           </S.YoutubeWrapper>
           <S.ImgOutWrapper>
             <S.MenuTxt>사진첨부</S.MenuTxt>
+            <input
+              style={{ display: "none" }}
+              type="file"
+              onChange={props.onChangeFile}
+              ref={props.fileRef}
+            />
             <S.ImgInnerWrapper>
+              {/* <S.UploadedImg
+                src={`https://storage.googleapis.com/${props.imageUrl}`}
+              />
+            </S.Imgs> */}
+              {props.imageUrl ? (
+                <S.Imgs
+                  onClick={props.onClickImage}
+                  src={`https://storage.googleapis.com/${props.imageUrl}`}
+                />
+              ) : (
+                <S.DefaultImg onClick={props.onClickImage}>
+                  <S.Plus>+</S.Plus>
+                  <S.ImgTxt>Upload</S.ImgTxt>
+                </S.DefaultImg>
+
+                // <S.Imgs onClick={props.onClickImage} />
+              )}
+              {/* 
               <S.Imgs>
                 <S.Plus>+</S.Plus>
                 <S.ImgTxt>Upload</S.ImgTxt>
@@ -113,11 +130,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
               <S.Imgs>
                 <S.Plus>+</S.Plus>
                 <S.ImgTxt>Upload</S.ImgTxt>
-              </S.Imgs>
-              <S.Imgs>
-                <S.Plus>+</S.Plus>
-                <S.ImgTxt>Upload</S.ImgTxt>
-              </S.Imgs>
+              </S.Imgs> */}
             </S.ImgInnerWrapper>
           </S.ImgOutWrapper>
           <S.MainSetWrapper>
