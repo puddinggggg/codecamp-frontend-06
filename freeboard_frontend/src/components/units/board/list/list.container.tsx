@@ -2,15 +2,24 @@ import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import MapBoardPage from "./list.presenter";
 import { FETCH_BOARDS, FETCH_BOARDS_COUNT } from "./list.queries";
+import _ from "lodash";
 
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useState, ChangeEvent } from "react";
+import {
+  IQuery,
+  IQueryFetchBoardsArgs,
+} from "../../../../commons/types/generated/types";
 
 export default function BoardList() {
   const router = useRouter();
-  const { data, refetch } = useQuery(FETCH_BOARDS);
+  const { data, refetch } = useQuery<
+    Pick<IQuery, "fetchBoards">,
+    IQueryFetchBoardsArgs
+  >(FETCH_BOARDS);
   const { data: dataBoardsCount } = useQuery(FETCH_BOARDS_COUNT);
   const [startPage, setStartPage] = useState(1);
   const [current, setCurrent] = useState(1);
+  const [keyword, setKeyword] = useState("");
 
   const lastPage = Math.ceil(dataBoardsCount?.fetchBoardsCount / 10);
   function onClickBoardNew() {
@@ -21,6 +30,14 @@ export default function BoardList() {
     router.push(`/boards/${event.target.id}`);
   }
 
+  const getDebounce = _.debounce((data) => {
+    refetch({ search: data, page: 1 });
+    setKeyword(data);
+  }, 200);
+
+  const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    getDebounce(event.target.value);
+  };
   const onClickPage = (event: MouseEvent<HTMLSpanElement>) => {
     refetch({ page: Number(event.target.id) });
     setCurrent(Number(event.target.id));
@@ -54,6 +71,9 @@ export default function BoardList() {
       current={current}
       startPage={startPage}
       lastPage={lastPage}
+      keyword={keyword}
+      onChangeSearch={onChangeSearch}
+      isMatched={false}
     />
   );
 }

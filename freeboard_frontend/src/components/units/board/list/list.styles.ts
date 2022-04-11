@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { IMapBoardPageProps } from "./list.types";
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -214,16 +215,24 @@ export const PageArrow = styled.span`
   line-height:25px;
   `;
 
+export interface ICurrentProps {
+  current: boolean;
+}
 export const Pages = styled.span`
   cursor: pointer;
   
-  color: ${(props) => (props.current === true ? "white" : "black")};
-  background-color: ${(props) => (props.current !== true ? "white" : "gray")};
+  color: ${(props: ICurrentProps) => (props.current === true ? "white" : "black")};
+  background-color: ${(props: ICurrentProps) => (props.current !== true ? "white" : "gray")};
   font-size:15px;
   margin: 0 5px;
 `;
 
-
+export interface ISearchProps {
+  isMatched: boolean;
+}
+export const Word = styled.span`
+  color: ${(props: ISearchProps) => (props.isMatched ? "red" : "black")};
+`;
 
 export const Footer = styled.div``;
 

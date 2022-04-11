@@ -28,6 +28,7 @@ export interface IUpdateBoardInput {
 }
 // 프리젠터
 export interface IBoardWriteUIProps {
+
     isActive: boolean
     writerError: string
     passwordError: string
@@ -51,8 +52,10 @@ export interface IBoardWriteUIProps {
     zipcode: string
     onChangeFile: (event: ChangeEvent<HTMLInputElement>) => void
     onClickImage: () => void;
+    onChangeFileUrls: (fileUrls: string, index: number) => void;
     fileRef: any
     imageUrl: string | undefined
+    fileUrls: string[];
 }
 
 

@@ -24,6 +24,14 @@ export default function CounterPage() {
   //   console.log("mounted");
   //   inputRef.current?.focus();
   // }, []);
+  useEffect(() => {
+    console.log("mounted");
+    inputRef.current?.focus();
+
+    return () => {
+      console.log("unmounted");
+    };
+  }, []);
 
   // 2.didUpdate
   // componentDidUpdate() {
@@ -44,14 +52,6 @@ export default function CounterPage() {
   }, []);
 
   // 4.DidMount, WillUnmount 합쳐서
-  useEffect(() => {
-    console.log("mounted");
-    inputRef.current?.focus();
-
-    return () => {
-      console.log("unmounted");
-    };
-  }, []);
 
   // 5. useEffect 잘못된 사용 사례
   // 5-1. useEffect안에 setState를 사용하면 랜더링을 2번 하게 된다. 어쩔수 없는 상황이 아니면 피할것.

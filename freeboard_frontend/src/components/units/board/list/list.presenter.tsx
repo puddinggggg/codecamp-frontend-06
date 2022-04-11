@@ -1,5 +1,6 @@
 import * as S from "./list.styles";
 import { IMapBoardPageProps } from "./list.types";
+import { v4 as uuidv4 } from "uuid";
 
 export default function MapBoardPage(props: IMapBoardPageProps) {
   return (
@@ -85,10 +86,14 @@ export default function MapBoardPage(props: IMapBoardPageProps) {
         <S.SearchWrapper>
           <S.TitleSearchWrapper>
             <S.SearchImg src="/images/search.png" />
-            <S.SearchInput type="text" placeholder="제목을 검색해주세요." />
+            <S.SearchInput
+              onChange={props.onChangeSearch}
+              type="text"
+              placeholder="제목을 검색해주세요."
+            />
           </S.TitleSearchWrapper>
           <S.DateSearch>YYYY.MM.DD ~ YYYY.MM.DD</S.DateSearch>
-          <S.SearchBtn>검색하기</S.SearchBtn>
+          {/* <S.SearchBtn>검색하기</S.SearchBtn> */}
         </S.SearchWrapper>
         <S.ListWrapper>
           <S.HeaderRow>
@@ -97,14 +102,22 @@ export default function MapBoardPage(props: IMapBoardPageProps) {
             <S.HeaderWriterColumn>작성자</S.HeaderWriterColumn>
             <S.HeaderDateColumn>작성일</S.HeaderDateColumn>
           </S.HeaderRow>
-          {props.data?.fetchBoards.map((el: any, index: number) => (
+          {props.data?.fetchBoards.map((el: any) => (
             // el index types 파일에 작성하는 방법 확인 필요
             <S.Row key={el._id}>
               <S.NumberColumn>
                 {el._id.substr(el._id.length - 4, el._id.length)}{" "}
               </S.NumberColumn>
               <S.TitleColumn id={el._id} onClick={props.onClickBoardDetail}>
-                {el.title}
+                {/* {el.title} */}
+                {el.title
+                  .replaceAll(props.keyword, `¿¿¿${props.keyword}¿¿¿`)
+                  .split("¿¿¿")
+                  .map((el: any) => (
+                    <S.Word isMatched={props.keyword === el} key={uuidv4()}>
+                      {el}
+                    </S.Word>
+                  ))}
               </S.TitleColumn>
               <S.WriterColumn>{el.writer}</S.WriterColumn>
               <S.DateColumn>{el.createdAt.substr(0, 10)}</S.DateColumn>
