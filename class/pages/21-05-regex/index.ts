@@ -2,7 +2,7 @@
 // true
 // /apple/.test("applq")
 // false
-// /^\w+@\w+.\w+$/.test("asdfasd@a;com")
+// /^\w+@\w+.\w+$/.test("asdfasd@a.com")
 // true
 // /^\w+@\w+\.\w+$/.test("asdfasd@a.com")
 // true
