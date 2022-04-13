@@ -1,6 +1,8 @@
 import * as S from "./list.styles";
 import { IMapBoardPageProps } from "./list.types";
 import { v4 as uuidv4 } from "uuid";
+import Pagination from "../../../commons/pagination/pagination.container";
+import SearchBar from "../../../commons/search/search.container";
 
 export default function MapBoardPage(props: IMapBoardPageProps) {
   return (
@@ -84,14 +86,11 @@ export default function MapBoardPage(props: IMapBoardPageProps) {
           </S.BestLists>
         </S.BestWrapper>
         <S.SearchWrapper>
-          <S.TitleSearchWrapper>
-            <S.SearchImg src="/images/search.png" />
-            <S.SearchInput
-              onChange={props.onChangeSearch}
-              type="text"
-              placeholder="제목을 검색해주세요."
-            />
-          </S.TitleSearchWrapper>
+          <SearchBar
+            refetch={props.refetch}
+            refetchBoardsCount={props.refetchBoardsCount}
+            onChangeKeyword={props.onChangeKeyword}
+          />
           <S.DateSearch>YYYY.MM.DD ~ YYYY.MM.DD</S.DateSearch>
           {/* <S.SearchBtn>검색하기</S.SearchBtn> */}
         </S.SearchWrapper>
@@ -124,31 +123,7 @@ export default function MapBoardPage(props: IMapBoardPageProps) {
             </S.Row>
           ))}
         </S.ListWrapper>
-        <S.PaginationWrapper>
-          {props.startPage !== 1 && (
-            <S.PageArrow onClick={props.onClickPrevPage}>＜</S.PageArrow>
-          )}
-
-          {new Array(10).fill(1).map(
-            (_, index) =>
-              index + props.startPage <= props.lastPage && (
-                <S.Pages
-                  key={index + props.startPage}
-                  current={index + props.startPage === props.current}
-                  onClick={props.onClickPage}
-                  id={String(index + props.startPage)}
-                >
-                  {` `}
-                  {index + props.startPage}
-                  {` `}
-                </S.Pages>
-              )
-          )}
-          {` `}
-          {props.lastPage - props.startPage >= 10 && (
-            <S.PageArrow onClick={props.onClickNextPage}>＞</S.PageArrow>
-          )}
-        </S.PaginationWrapper>
+        <Pagination refetch={props.refetch} count={props.count} />
         <S.Footer>
           <S.Btn onClick={props.onClickBoardNew}>게시물 등록하기</S.Btn>
         </S.Footer>

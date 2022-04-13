@@ -1,13 +1,13 @@
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 import { useRouter } from "next/router";
 import SignUpUI from "./signup.presenter";
 
-import { IWriteBoardProps, IUpdateBoardInput } from "./signup.types";
+import { ISignUpUIProps } from "./signup.types";
 import { Modal } from "antd";
-import { checkFileValidation } from "../../../../commons/libraries/validation";
+// import { checkFileValidation } from "../../../../commons/libraries/validation";
 
-export default function SignUp(props: IWriteBoardProps) {
+export default function SignUp(props: ISignUpUIProps) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
 
@@ -26,7 +26,7 @@ export default function SignUp(props: IWriteBoardProps) {
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
 
-  const fileRef = useRef<HTMLInputElement>(null);
+  // const fileRef = useRef<HTMLInputElement>(null);
 
   const onChangePasswordCheck = (event: ChangeEvent<HTMLInputElement>) => {
     setPasswordCheck(event.target.value);
@@ -131,7 +131,11 @@ export default function SignUp(props: IWriteBoardProps) {
       passwordCheck !== "" &&
       password !== "" &&
       name !== "" &&
-      email !== ""
+      email !== "" &&
+      emailRule.test(email) &&
+      passwordRule.test(password) &&
+      passwordRule.test(passwordCheck) &&
+      password === passwordCheck
     ) {
       try {
         //   const result = await
@@ -158,8 +162,8 @@ export default function SignUp(props: IWriteBoardProps) {
       onChangeName={onChangeName}
       onChangeEmail={onChangeEmail}
       onClickSubmit={onClickSubmit}
-      data={props.data}
-      fileRef={fileRef}
+
+      // fileRef={fileRef}
     />
   );
 }

@@ -53,7 +53,9 @@ export default function SignUpUI(props: ISignUpUIProps) {
             <S.Error>{props.passwordCheckError}</S.Error>
           </S.SignUpWrapper>
 
-          <S.SubmitBtn onClick={props.onClickSubmit}>가입하기</S.SubmitBtn>
+          <S.SubmitBtn isActive={props.isActive} onClick={props.onClickSubmit}>
+            가입하기
+          </S.SubmitBtn>
         </S.Wrapper>
       </S.OutWrapper>
     </div>

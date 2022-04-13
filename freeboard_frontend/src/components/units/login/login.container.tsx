@@ -1,76 +1,75 @@
-import { ChangeEvent, useRef, useState } from "react";
-
+import { ChangeEvent, useState } from "react";
+import { useRecoilState } from "recoil";
 import { useRouter } from "next/router";
-import SignUpUI from "./signup.presenter";
-
-import { IWriteBoardProps, IUpdateBoardInput } from "./signup.types";
+import LoginUI from "./login.presenter";
+import { LOGIN_USER } from "./login.queries";
+import { ILoginUIProps } from "./login.types";
 import { Modal } from "antd";
-import { checkFileValidation } from "../../../../commons/libraries/validation";
+import { useMutation } from "@apollo/client";
+import { accessTokenState } from "../../../commons/store";
+// import { checkFileValidation } from "../../../../commons/libraries/validation";
 
-export default function SignUp(props: IWriteBoardProps) {
+export default function Login(props: ILoginUIProps) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
 
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-
   const emailRule = /^\w+@\w+\.\w+$/;
-
   const passwordRule = /^[A-Za-z0-9]{6,12}$/;
 
-  // const [idError, setIdError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [emailError, setEmailError] = useState("");
-
-  const fileRef = useRef<HTMLInputElement>(null);
+  const [loginUser] = useMutation(LOGIN_USER);
+  const [, setAccessToken] = useRecoilState(accessTokenState);
 
   const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
-    if (event.target.value !== "" && email !== "") {
+    if (event.target.value !== "" && email !== "" && emailRule.test(email)) {
       setIsActive(true);
     } else {
       setIsActive(false);
-    }
-    if (event.target.value !== "") {
-      setPasswordError("");
     }
   };
 
   const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
-    if (password !== "" && event.target.value !== "") {
+    if (
+      password !== "" &&
+      event.target.value !== "" &&
+      passwordRule.test(password)
+    ) {
       setIsActive(true);
     } else {
       setIsActive(false);
     }
-    if (event.target.value !== "") {
-      setEmailError("");
-    }
   };
 
-  const onClickSubmit = async () => {
+  const onClickLogin = async () => {
     if (password === "") {
-      setPasswordError("비밀번호를 입력해주세요.");
+      Modal.error({ content: "비밀번호를 입력해주세요." });
     } else if (!passwordRule.test(password)) {
-      setPasswordError("비밀번호는 영어 대소문자, 숫자 포함 6~12자");
-    } else {
-      setPasswordError("");
+      Modal.error({ content: "비밀번호는 영어 대소문자, 숫자 포함 6~12자" });
     }
 
     if (email === "") {
-      setEmailError("이메일주소를 입력해주세요.");
+      Modal.error({ content: "이메일주소를 입력해주세요." });
     } else if (!emailRule.test(email)) {
-      setEmailError("이메일주소를 확인해주세요.");
-    } else {
-      setEmailError("");
+      Modal.error({ content: "이메일주소를 확인해주세요." });
     }
-    if (password !== "" && email !== "") {
+    if (
+      password !== "" &&
+      email !== "" &&
+      emailRule.test(email) &&
+      passwordRule.test(password)
+    ) {
       try {
-        //   const result = await
-
-        //   }
-        // };
-
+        const result = await loginUser({
+          variables: {
+            email,
+            password,
+          },
+        });
+        const accessToken = result.data.loginUser.accessToken;
+        setAccessToken(accessToken);
         Modal.success({ content: "로그인하였습니다!" });
         router.push(`/boards/`);
       } catch (error: any) {
@@ -79,15 +78,11 @@ export default function SignUp(props: IWriteBoardProps) {
     }
   };
   return (
-    <SignUpUI
+    <LoginUI
       isActive={isActive}
-      passwordError={passwordError}
-      emailError={emailError}
       onChangePassword={onChangePassword}
       onChangeEmail={onChangeEmail}
-      onClickSubmit={onClickSubmit}
-      data={props.data}
-      fileRef={fileRef}
+      onClickLogin={onClickLogin}
     />
   );
 }

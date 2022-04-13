@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { ISubmitBtnProps } from "./signup.types"
+import { ILoginBtnProps } from "./login.types"
 // styled emotion 사용시 선언 첫 글자는 반드시 대문자
 export const OutWrapper = styled.div`
 display:flex;
@@ -20,11 +20,11 @@ export const Head = styled.div`
   font-size: 36px;
   text-align: center;
 `;
-export const SignUpWrapper = styled.div`
+export const LoginWrapper = styled.div`
   display: flex;
   padding-top: 80px;
 `;
-export const SignUpTxt = styled.div`
+export const LoginTxt = styled.div`
   height: 24px;
   font-family: "Noto Sans CJK KR";
   font-style: normal;
@@ -33,18 +33,14 @@ export const SignUpTxt = styled.div`
   line-height: 24px;
   margin-bottom: 16px;
 `;
-export const SignUpInput = styled.input`
+export const LoginInput = styled.input`
   width: 486px;
   height: 52px;
   border: 1px solid #bdbdbd;
   box-sizing: border-box;
   padding: 14px 16px;
 `;
-export const Error = styled.div`
-  padding-top: 10px;
-  font-size: 14px;
-  color: red;
-`;
+
 export const SubmitBtn = styled.button`
 background: #FFD600;
 width: 179px;
@@ -57,7 +53,7 @@ line-height: 24px;
 padding: 0 8px;
 border: none;
 margin-top: 80px;
-background-color: ${(props: ISubmitBtnProps) => (props.isActive ? "yellow" : "gray")}
+background-color: ${(props: ILoginBtnProps) => (props.isActive ? "yellow" : "gray")}
 `;
 // export const NameWrapper = styled.div`
 //   width: 100%;

@@ -1,28 +1,19 @@
 import { gql } from "@apollo/client";
 
-export const CREATE_BOARD = gql`
-mutation createBoard($createBoardInput: CreateBoardInput!) {
-  createBoard(createBoardInput: $createBoardInput) {
-    _id
-    writer
-      title
-      contents
-      images
-  }
-}
-`;
 
-export const UPDATE_BOARD = gql`
-mutation updateBoard($boardId: ID!, $password: String, $updateBoardInput: UpdateBoardInput!) {
-  updateBoard(boardId: $boardId, password: $password, updateBoardInput: $updateBoardInput) {
-    _id
-  }
-}
-`;
-export const UPLOAD_FILE = gql`
-  mutation uploadFile($file: Upload!) {
-    uploadFile(file: $file) {
-      url
+// export const FETCH_USER_LOGGED_IN = gql`
+//   query fetchUserLoggedIn {
+//     fetchUserLoggedIn {
+//       email
+//       name
+//     }
+//   }
+// `;
+
+export const LOGIN_USER = gql`
+  mutation loginUser($email: String!, $password: String!) {
+    loginUser(email: $email, password: $password) {
+      accessToken
     }
   }
 `;

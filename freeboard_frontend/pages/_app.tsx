@@ -1,20 +1,11 @@
 import "../styles/globals.css";
 import "antd/dist/antd.css";
-import {
-  ApolloClient,
-  ApolloLink,
-  ApolloProvider,
-  InMemoryCache,
-} from "@apollo/client";
+
 import { AppProps } from "next/app";
 import Layout from "../src/components/commons/layout";
-// Import the functions you need from the SDKs you need
-import { createUploadLink } from "apollo-upload-client";
+import { RecoilRoot } from "recoil";
+import ApolloSetting from "../src/components/commons/apollo";
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBfd1FYqmucaERCohzOw4W7hGL60Y38Je4",
   authDomain: "firetry-a2eb0.firebaseapp.com",
@@ -27,20 +18,15 @@ const firebaseConfig = {
 // Initialize Firebase
 export const firebaseApp = initializeApp(firebaseConfig);
 function MyApp({ Component, pageProps }: AppProps) {
-  const uploadLink = createUploadLink({
-    uri: "http://backend06.codebootcamp.co.kr/graphql",
-  });
-
-  const client = new ApolloClient({
-    link: ApolloLink.from([uploadLink]),
-    cache: new InMemoryCache(),
-  });
   return (
-    <ApolloProvider client={client}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </ApolloProvider>
+    <RecoilRoot>
+      <ApolloSetting>
+        {/* <Global styles={globalStyles} /> */}
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ApolloSetting>
+    </RecoilRoot>
   );
 }
 

@@ -1,59 +1,34 @@
-import * as S from "./signup.styles";
-import { ISignUpUIProps } from "./signup.types";
+import * as S from "./login.styles";
+import { ILoginUIProps } from "./login.types";
 
-export default function SignUpUI(props: ISignUpUIProps) {
+export default function LoginUI(props: ILoginUIProps) {
   return (
     <div>
       <S.OutWrapper>
         <S.Wrapper>
-          <S.Head>회원가입</S.Head>
-          {/* <S.SignUpWrapper>
-            <S.SignUpTxt>아이디</S.SignUpTxt>
-            <S.SignUpInput
-              type="text"
-              placeholder="아이디"
-              onChange={props.onChangeId}
-              />
-            <S.Error>{props.idError}</S.Error> 
-               </S.SignUpWrapper> */}
-          <S.SignUpWrapper>
-            <S.SignUpTxt>이메일주소</S.SignUpTxt>
-            <S.SignUpInput
+          <S.Head>로그인</S.Head>
+
+          <S.LoginWrapper>
+            <S.LoginTxt>이메일주소</S.LoginTxt>
+            <S.LoginInput
               type="text"
               placeholder="이메일주소"
               onChange={props.onChangeEmail}
             />
-            <S.Error>{props.emailError}</S.Error>
-          </S.SignUpWrapper>
-          <S.SignUpWrapper>
-            <S.SignUpTxt>이름</S.SignUpTxt>
-            <S.SignUpInput
-              type="text"
-              placeholder="이름"
-              onChange={props.onChangeName}
-            />
-            <S.Error>{props.nameError}</S.Error>
-          </S.SignUpWrapper>
-          <S.SignUpWrapper>
-            <S.SignUpTxt>비밀번호</S.SignUpTxt>
-            <S.SignUpInput
+          </S.LoginWrapper>
+
+          <S.LoginWrapper>
+            <S.LoginTxt>비밀번호</S.LoginTxt>
+            <S.LoginInput
               type="password"
               placeholder="비밀번호"
               onChange={props.onChangePassword}
             />
-            <S.Error>{props.passwordError}</S.Error>
-          </S.SignUpWrapper>
-          <S.SignUpWrapper>
-            <S.SignUpTxt>비밀번호확인</S.SignUpTxt>
-            <S.SignUpInput
-              type="password"
-              placeholder="비밀번호확인"
-              onChange={props.onChangePasswordCheck}
-            />
-            <S.Error>{props.passwordCheckError}</S.Error>
-          </S.SignUpWrapper>
+          </S.LoginWrapper>
 
-          <S.SubmitBtn onClick={props.onClickSubmit}>가입하기</S.SubmitBtn>
+          <S.SubmitBtn isActive={props.isActive} onClick={props.onClickLogin}>
+            로그인
+          </S.SubmitBtn>
         </S.Wrapper>
       </S.OutWrapper>
     </div>
