@@ -7,7 +7,7 @@ export default function HofPage() {
     <div>
       <h1>HOF 연습 페이지입니다!!!</h1>
       {["철수", "영희", "훈이"].map((el) => (
-        <div key={el} onClick={onClickChild(el)(event)}>
+        <div key={el} onClick={onClickChild(el)}>
           {el}
         </div>
       ))}

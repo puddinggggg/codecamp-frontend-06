@@ -27,7 +27,7 @@ export default function BoardList() {
   }
 
   function onClickBoardDetail(event: MouseEvent<HTMLDivElement>) {
-    router.push(`/boards/${event.target.id}`);
+    router.push(`/boards/${(event.target as HTMLElement).id}`);
   }
   function onChangeKeyword(value: string) {
     setKeyword(value);

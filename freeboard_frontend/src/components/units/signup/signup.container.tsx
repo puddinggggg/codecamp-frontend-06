@@ -5,11 +5,15 @@ import SignUpUI from "./signup.presenter";
 
 import { ISignUpUIProps } from "./signup.types";
 import { Modal } from "antd";
+import { useMutation } from "@apollo/client";
+import { CREATE_USER } from "./signup.queries";
 // import { checkFileValidation } from "../../../../commons/libraries/validation";
 
 export default function SignUp(props: ISignUpUIProps) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
+
+  const [createUser] = useMutation(CREATE_USER);
 
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
@@ -17,7 +21,6 @@ export default function SignUp(props: ISignUpUIProps) {
   const [email, setEmail] = useState("");
 
   const emailRule = /^\w+@\w+\.\w+$/;
-
   const passwordRule = /^[A-Za-z0-9]{6,12}$/;
 
   // const [idError, setIdError] = useState("");
@@ -138,13 +141,18 @@ export default function SignUp(props: ISignUpUIProps) {
       password === passwordCheck
     ) {
       try {
-        //   const result = await
-
-        //   }
-        // };
-
+        const result = await createUser({
+          variables: {
+            createUserInput: {
+              email,
+              name,
+              password,
+            },
+          },
+        });
+        console.log(result);
         Modal.success({ content: "회원가입에 성공하였습니다!" });
-        router.push(`/boards/`);
+        router.push(`/login/`);
       } catch (error: any) {
         Modal.error({ content: error.message });
       }
