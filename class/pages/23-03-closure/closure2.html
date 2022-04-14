@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>Closure</title>
+    <script>
+      function outer() {
+        let animal = "고양이";
+        function inner() {
+          let name = "푸딩";
+          console.log(`안녕하세요. 저는 ${animal} ${name}입니다.`);
+        }
+        inner();
+      }
+      outer();
+    </script>
+  </head>
+  <body></body>
+</html>
