@@ -1,6 +1,6 @@
 import { useQuery, gql } from "@apollo/client";
 import styled from "@emotion/styled";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, MouseEvent } from "react";
 import {
   IQuery,
   IQueryFetchBoardsArgs,
@@ -53,8 +53,8 @@ export default function StaticRoutedPage() {
   // const onClickSearch = () => {
   //   refetch({ search, page: 1 });
   // };
-  const onClickPage = (e) => {
-    refetch({ page: Number(e.target.id) });
+  const onClickPage = (e: MouseEvent<HTMLSpanElement>) => {
+    refetch({ page: Number((e.target as HTMLElement).id) });
   };
   return (
     <div>
