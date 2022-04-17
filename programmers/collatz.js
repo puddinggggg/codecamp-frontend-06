@@ -34,18 +34,18 @@ function solution(num) {
 // }
 
 // while 사용
-// function solution(num) {
-//   let answer = 0;
-//   while (num !== 1) {
-//     if (answer >= 500) {
-//       return -1;
-//     }
+function solution(num) {
+  let answer = 0;
+  while (num !== 1) {
+    if (answer >= 500) {
+      return -1;
+    }
 
-//     answer++;
-//     num = num % 2 === 0 ? num / 2 : num * 3 + 1;
-//   }
-//   return answer;
-// }
+    answer++;
+    num = num % 2 === 0 ? num / 2 : num * 3 + 1;
+  }
+  return answer;
+}
 
 // method 사용 여기서는 비효율적
 // function solution(num) {
