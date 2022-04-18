@@ -1,8 +1,7 @@
-// @ts-ignore
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
-export const withAuth = (Component) => (props) => {
+export function useAuth() {
   const router = useRouter();
   // 권한분기 로직 추가하기
   useEffect(() => {
@@ -11,5 +10,4 @@ export const withAuth = (Component) => (props) => {
       router.push("/23-04-login-check");
     }
   }, []);
-  return <Component {...props} />;
-};
+}
