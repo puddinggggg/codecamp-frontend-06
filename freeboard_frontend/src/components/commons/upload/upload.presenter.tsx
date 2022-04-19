@@ -1,7 +1,7 @@
 import { UploadButton, UploadFileHidden, UploadImage } from "./upload.styles";
 import { IUploadUIProps } from "./upload.types";
 
-export default function Uploads01UI(props: IUploadUIProps) {
+export default function UploadsUI(props: IUploadUIProps) {
   return (
     <>
       {props.fileUrl ? (

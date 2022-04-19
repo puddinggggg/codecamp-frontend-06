@@ -70,6 +70,7 @@ export default function Login(props: ILoginUIProps) {
         });
         const accessToken = result.data.loginUser.accessToken;
         setAccessToken(accessToken);
+        localStorage.setItem("accessToken", accessToken);
         Modal.success({ content: "로그인하였습니다!" });
         router.push(`/boards/`);
       } catch (error: any) {

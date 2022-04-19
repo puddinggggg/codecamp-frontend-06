@@ -35,6 +35,7 @@ export default function LoginPage() {
       });
       const accessToken = result.data.loginUser.accessToken;
       setAccessToken(accessToken);
+      console.log(accessToken);
       alert("로그인성공");
       router.push("/22-02");
     } catch (error) {

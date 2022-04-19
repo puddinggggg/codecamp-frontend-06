@@ -113,7 +113,11 @@ export default function MapBoardPage(props: IMapBoardPageProps) {
                   .replaceAll(props.keyword, `¿¿¿${props.keyword}¿¿¿`)
                   .split("¿¿¿")
                   .map((el: any) => (
-                    <S.Word isMatched={props.keyword === el} key={uuidv4()}>
+                    <S.Word
+                      onClick={(event) => event.stopPropagation()}
+                      isMatched={props.keyword === el}
+                      key={uuidv4()}
+                    >
                       {el}
                     </S.Word>
                   ))}
