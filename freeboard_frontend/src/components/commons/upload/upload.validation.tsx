@@ -18,5 +18,5 @@ export const checkFileValidation = (file?: File) => {
     alert("이미지 파일만 업로드 가능");
     return false;
   }
-  return true;
+  return file;
 };

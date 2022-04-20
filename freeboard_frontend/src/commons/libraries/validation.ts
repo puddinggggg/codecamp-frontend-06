@@ -14,5 +14,5 @@ export const checkFileValidation = (file?: File) => {
     return false;
   }
 
-  return true;
+  return file;
 };
