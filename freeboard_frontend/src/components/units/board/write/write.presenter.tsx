@@ -2,6 +2,8 @@ import * as S from "./write.styles";
 import { IBoardWriteUIProps } from "./write.types";
 import DaumPostcode from "react-daum-postcode";
 import { Modal } from "antd";
+import Upload from "../../../commons/upload/upload.container";
+import { v4 as uuidv4 } from "uuid";
 
 export default function BoardWriteUI(props: IBoardWriteUIProps) {
   console.log(props.data?.fetchBoard.writer);
@@ -105,32 +107,14 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
               ref={props.fileRef}
             />
             <S.ImgInnerWrapper>
-              {/* <S.UploadedImg
-                src={`https://storage.googleapis.com/${props.imageUrl}`}
-              />
-            </S.Imgs> */}
-              {props.imageUrl ? (
-                <S.Imgs
-                  onClick={props.onClickImage}
-                  src={`https://storage.googleapis.com/${props.imageUrl}`}
+              {props.fileUrls.map((el, index) => (
+                <Upload
+                  key={uuidv4()}
+                  index={index}
+                  fileUrl={el}
+                  onChangeFileUrls={props.onChangeFileUrls}
                 />
-              ) : (
-                <S.DefaultImg onClick={props.onClickImage}>
-                  <S.Plus>+</S.Plus>
-                  <S.ImgTxt>Upload</S.ImgTxt>
-                </S.DefaultImg>
-
-                // <S.Imgs onClick={props.onClickImage} />
-              )}
-              {/* 
-              <S.Imgs>
-                <S.Plus>+</S.Plus>
-                <S.ImgTxt>Upload</S.ImgTxt>
-              </S.Imgs>
-              <S.Imgs>
-                <S.Plus>+</S.Plus>
-                <S.ImgTxt>Upload</S.ImgTxt>
-              </S.Imgs> */}
+              ))}
             </S.ImgInnerWrapper>
           </S.ImgOutWrapper>
           <S.MainSetWrapper>

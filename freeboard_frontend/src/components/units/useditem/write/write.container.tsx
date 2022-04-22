@@ -29,7 +29,7 @@ export default function WriteBoard(props: IWriteUseditemProps) {
     // mode onChange하면 버튼 처음에 안눌러도 에러메세지 바로 뜸
   });
 
-  const [fileUrls, setFileUrls] = useState(["", ""]);
+  const [fileUrls, setFileUrls] = useState(["", "", "", "", ""]);
   const [createUseditem] = useMutation(CREATE_USED_ITEM);
   const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
 
@@ -41,6 +41,7 @@ export default function WriteBoard(props: IWriteUseditemProps) {
 
   const onClickSubmit = async (data: ISubmitVariables) => {
     const { price, ...rest } = data;
+    console.log(data);
     if (
       data.remarks !== "" &&
       Number(data.price) &&
@@ -50,7 +51,7 @@ export default function WriteBoard(props: IWriteUseditemProps) {
       try {
         const result = await createUseditem({
           variables: {
-            createBoardInput: {
+            createUseditemInput: {
               price: Number(data.price),
               ...rest,
               images: fileUrls,
@@ -62,9 +63,10 @@ export default function WriteBoard(props: IWriteUseditemProps) {
             },
           },
         });
-        console.log(result);
+
         Modal.success({ content: "상품 등록에 성공하였습니다!" });
-        router.push(`/boards/${result.data.createBoard._id}`);
+        console.log(result);
+        router.push(`/useditem/${result.data.createUseditem._id}`);
       } catch (error: any) {
         Modal.error({ content: error.message });
       }
@@ -82,13 +84,13 @@ export default function WriteBoard(props: IWriteUseditemProps) {
     try {
       await updateUseditem({
         variables: {
-          useditemId: router.query.boardId,
+          useditemId: router.query.useditemId,
           price: Number(data.price),
           updateUseditemInput,
         },
       });
       Modal.success({ content: "상품 수정에 성공하였습니다!" });
-      router.push(`/boards/${router.query.productId}`);
+      router.push(`/useditem/${router.query.useditemId}`);
     } catch (error: any) {
       Modal.error({ content: error.message });
       // 에러 any 처리 말고 해결법 뭐가 좋을까?
@@ -100,8 +102,8 @@ export default function WriteBoard(props: IWriteUseditemProps) {
     setFileUrls(newFileUrls);
   };
   useEffect(() => {
-    if (props.data?.fetchBoard.images?.length) {
-      setFileUrls([...props.data?.fetchBoard.images]);
+    if (props.data?.fetchUseditem.images?.length) {
+      setFileUrls([...props.data?.fetchUseditem.images]);
     }
   }, [props.data]);
   return (

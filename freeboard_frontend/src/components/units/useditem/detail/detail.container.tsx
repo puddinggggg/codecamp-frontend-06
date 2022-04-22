@@ -1,83 +1,71 @@
 import { useRouter } from "next/router";
 import { useQuery, useMutation } from "@apollo/client";
-import BoardDetailUI from "./detail.presenter";
+import UseditemDetailUI from "./detail.presenter";
 import {
-  FETCH_BOARD,
-  DELETE_BOARD,
-  LIKE_BOARD,
-  DISLIKE_BOARD,
+  FETCH_USED_ITEM,
+  DELETE_USED_ITEM,
+  PICK_USED_ITEM,
 } from "./detail.queries";
 import {
   IMutation,
-  IMutationDeleteBoardArgs,
-  IMutationDislikeBoardArgs,
-  IMutationLikeBoardArgs,
+  IMutationDeleteUseditemArgs,
+  IMutationToggleUseditemPickArgs,
   IQuery,
-  IQueryFetchBoardArgs,
+  IQueryFetchUseditemArgs,
 } from "../../../../commons/types/generated/types";
 
-export default function BoardDetail() {
+export default function UseditemDetail() {
   const router = useRouter();
-  const [deleteBoard] = useMutation<
-    Pick<IMutation, "deleteBoard">,
-    IMutationDeleteBoardArgs
-  >(DELETE_BOARD);
-  const [likeBoard] = useMutation<
-    Pick<IMutation, "likeBoard">,
-    IMutationLikeBoardArgs
-  >(LIKE_BOARD);
+  const [deletUseditem] = useMutation<
+    Pick<IMutation, "deleteUseditem">,
+    IMutationDeleteUseditemArgs
+  >(DELETE_USED_ITEM);
+  const [toggleUseditemPick] = useMutation<
+    Pick<IMutation, "toggleUseditemPick">,
+    IMutationToggleUseditemPickArgs
+  >(PICK_USED_ITEM);
 
-  const [dislikeBoard] = useMutation<
-    Pick<IMutation, "dislikeBoard">,
-    IMutationDislikeBoardArgs
-  >(DISLIKE_BOARD);
-  const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
-    FETCH_BOARD,
-    {
-      variables: { boardId: String(router.query.boardId) },
-    }
-  );
+  const { data } = useQuery<
+    Pick<IQuery, "fetchUseditem">,
+    IQueryFetchUseditemArgs
+  >(FETCH_USED_ITEM, {
+    variables: { useditemId: String(router.query.useditemId) },
+  });
+  console.log(data);
 
   // 댓글 id router.query._id로 가져옴
   const onClickDelete = () => {
-    deleteBoard({
-      variables: { boardId: String(router.query.boardId) },
+    deletUseditem({
+      variables: { useditemId: String(router.query.useditemId) },
     });
-    alert("게시글 삭제 완료");
-    router.push("/boards");
+    alert("상품 삭제 완료");
+    router.push("/useditem");
   };
-  const onClickBoardList = () => {
-    router.push("/boards");
+  const onClickUseditemList = () => {
+    router.push("/useditem");
   };
-  const onClickBoardEdit = () => {
-    router.push(`/boards/${router.query.boardId}/edit`);
+  const onClickUseditemEdit = () => {
+    router.push(`/useditem/${router.query.useditemId}/edit`);
   };
-  const onClickLike = () => {
-    likeBoard({
-      variables: { boardId: String(router.query.boardId) },
+  const onClickPick = () => {
+    toggleUseditemPick({
+      variables: { useditemId: String(router.query.useditemId) },
       refetchQueries: [
-        { query: FETCH_BOARD, variables: { boardId: router.query.boardId } },
-      ],
-    });
-  };
-
-  const onClickDislike = () => {
-    dislikeBoard({
-      variables: { boardId: String(router.query.boardId) },
-      refetchQueries: [
-        { query: FETCH_BOARD, variables: { boardId: router.query.boardId } },
+        {
+          query: FETCH_USED_ITEM,
+          variables: { boardId: router.query.useditemId },
+        },
       ],
     });
   };
 
   return (
-    <BoardDetailUI
+    <UseditemDetailUI
       data={data}
       onClickDelete={onClickDelete}
-      onClickBoardList={onClickBoardList}
-      onClickBoardEdit={onClickBoardEdit}
-      onClickLike={onClickLike}
-      onClickDislike={onClickDislike}
+      onClickUseditemList={onClickUseditemList}
+      onClickUseditemEdit={onClickUseditemEdit}
+      onClickPick={onClickPick}
     />
   );
 }

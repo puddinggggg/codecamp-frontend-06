@@ -1,41 +1,54 @@
 import { gql } from "@apollo/client";
 
-export const FETCH_BOARD = gql`
-    query fetchBoard($boardId: ID!) {
-      fetchBoard(boardId: $boardId) {
-        _id
-      writer
-      title
+export const FETCH_USED_ITEM = gql`
+  query fetchUseditem($useditemId: ID!) {
+    fetchUseditem(useditemId: $useditemId) {
+      _id
+      name
+      remarks
       contents
-      youtubeUrl
-      likeCount
-      dislikeCount
-      createdAt
+      price
+      tags
       images
-      boardAddress {
-        zipcode
-        address
-        addressDetail
+      pickedCount
+      # useditemAddress {
+      #   _id
+      #   zipcode
+      #   address
+      #   addressDetail
+      #   lat
+      #   lng
+      #   createdAt
+      #   updatedAt
+      # }
+      # # buyer
+      seller {
+        _id
+        email
+        name
+        picture
+        # userPoint {
+        #   _id
+        #   amount
+        # }
+        # 유저포인트 넣었더니 다른 데이터들도 다 못받아왔는데 이유 확인할것
+        createdAt
+        updatedAt
       }
-      }
+      createdAt
+      updatedAt
     }
-  `;
-
-export const DELETE_BOARD = gql`
-  mutation deleteBoard($boardId: ID!) {
-    deleteBoard(boardId: $boardId)
   }
 `;
 
-
-export const LIKE_BOARD = gql`
-  mutation likeBoard($boardId: ID!) {
-    likeBoard(boardId: $boardId)
+export const DELETE_USED_ITEM = gql`
+  mutation deleteUseditem($useditemId: ID!) {
+    deleteUseditem(useditemId: $useditemId)
   }
 `;
 
-export const DISLIKE_BOARD = gql`
-  mutation dislikeBoard($boardId: ID!) {
-    dislikeBoard(boardId: $boardId)
+export const PICK_USED_ITEM = gql`
+  mutation toggleUseditemPick($useditemId: ID!) {
+    toggleUseditemPick(useditemId: $useditemId)
   }
 `;

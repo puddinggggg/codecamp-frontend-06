@@ -1,15 +1,10 @@
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import BoardWriteUI from "./write.presenter";
-import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from "./write.queries";
+import { CREATE_BOARD, UPDATE_BOARD } from "./write.queries";
 import { IWriteBoardProps, IUpdateBoardInput } from "./write.types";
 import { Modal } from "antd";
-import { checkFileValidation } from "../../../../commons/libraries/validation";
-import {
-  IMutation,
-  IMutationUploadFileArgs,
-} from "../../../../commons/types/generated/types";
 
 export default function WriteBoard(props: IWriteBoardProps) {
   const router = useRouter();
@@ -33,12 +28,12 @@ export default function WriteBoard(props: IWriteBoardProps) {
   const [titleError, setTitleError] = useState("");
   const [contentsError, setContentsError] = useState("");
 
-  const fileRef = useRef<HTMLInputElement>(null);
-  const [imageUrl, setImageUrl] = useState<string | undefined>("");
-  const [uploadFile] = useMutation<
-    Pick<IMutation, "uploadFile">,
-    IMutationUploadFileArgs
-  >(UPLOAD_FILE);
+  const [fileUrls, setFileUrls] = useState(["", "", ""]);
+  const onChangeFileUrls = (fileUrl: string, index: number) => {
+    const newFileUrls = [...fileUrls];
+    newFileUrls[index] = fileUrl;
+    setFileUrls(newFileUrls);
+  };
 
   const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
     setWriter(event.target.value);
@@ -153,12 +148,13 @@ export default function WriteBoard(props: IWriteBoardProps) {
               title,
               contents,
               youtubeUrl,
-              images: [imageUrl],
+
               boardAddress: {
                 zipcode,
                 address,
                 addressDetail,
               },
+              images: fileUrls,
             },
           },
         });
@@ -194,26 +190,6 @@ export default function WriteBoard(props: IWriteBoardProps) {
       // 에러 any 처리 말고 해결법 뭐가 좋을까?
     }
   };
-  const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    console.log(file);
-
-    const isValid = checkFileValidation(file);
-    if (!isValid) return;
-
-    try {
-      const result = await uploadFile({ variables: { file } });
-      console.log(result.data?.uploadFile.url);
-
-      setImageUrl(result.data?.uploadFile.url);
-    } catch (error: any) {
-      Modal.error({ content: error.message });
-    }
-  };
-
-  const onClickImage = () => {
-    fileRef.current?.click();
-  };
 
   return (
     <BoardWriteUI
@@ -238,10 +214,8 @@ export default function WriteBoard(props: IWriteBoardProps) {
       address={address}
       zipcode={zipcode}
       addressDetail={addressDetail}
-      onClickImage={onClickImage}
-      onChangeFile={onChangeFile}
-      fileRef={fileRef}
-      imageUrl={imageUrl}
+      onChangeFileUrls={onChangeFileUrls}
+      fileUrls={fileUrls}
     />
   );
 }

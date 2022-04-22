@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   margin: 50px auto;
 `;
 
-export const BoardWrapper = styled.div`
+export const UseditemWrapper = styled.div`
   border: 1px solid black;
   padding: 80px 100px 100px 100px;
   display: flex;
@@ -24,7 +24,15 @@ export const Header = styled.div`
   border-bottom: 1px solid #bdbdbd;
   padding-bottom: 20px;
 `;
-
+export const Mid = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #bdbdbd;
+  padding-bottom: 20px;
+`;
 export const ProfileWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -43,7 +51,7 @@ export const Info = styled.div`
   justify-content: center;
 `;
 
-export const Writer = styled.div`
+export const Seller = styled.div`
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
@@ -66,27 +74,25 @@ export const IconWrapper = styled.div`
 export const Link = styled.img`
   width: 27px;
   height: 14px;
-  `;
+`;
 export const Location = styled.img`
   width: 19px;
   height: 27px;
   margin: 0 20px;
-  
 `;
 
 export const Body = styled.div`
   width: 100%;
   min-height: 800px;
 `;
-
-export const Title = styled.h1`
-  padding-top: 80px;
+export const NameWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
-export const Image = styled.img`
-  width: 996px;
-  height: 480px;
-`;
+export const Remarks = styled.div``;
+export const Name = styled.div``;
+export const Price = styled.div``;
 
 export const Contents = styled.div`
   padding-top: 40px;
@@ -96,53 +102,31 @@ export const Contents = styled.div`
   line-height: 24px;
 `;
 
-export const Youtube = styled.div`
+export const Tag = styled.div`
   width: 486px;
   height: 240px;
   border: 1px solid #bdbdbd;
   margin: 0 auto 160px;
-  `;
-export const YoutubePlayer = styled(ReactPlayer)`
-
 `;
 
-export const LikeWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-`;
-
-export const LikeInnerWrapper = styled.div`
+export const PickWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0 10px;
 `;
 
-export const LikeImg = styled.img`
+export const PickImg = styled.img`
   width: 24px;
   height: 20px;
 `;
 
-export const LikeCount = styled.div`
+export const PickCount = styled.div`
   font-weight: 400;
   font-size: 18px;
   line-height: 27px;
   text-align: center;
   color: #ffd600;
-`;
-
-export const DislikeImg = styled.img`
-  width: 24px;
-  height: 20px;
-`;
-
-export const DislikeCount = styled.div`
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 27px;
-  text-align: center;
-  color: #828282;
 `;
 
 export const BottomWrapper = styled.div`
@@ -153,7 +137,7 @@ export const BottomWrapper = styled.div`
   border-bottom: 1px solid #bdbdbd;
   padding-bottom: 90px;
 `;
-
+export const MapWrapper = styled.div``;
 export const Button = styled.button`
   width: 179px;
   height: 45px;
