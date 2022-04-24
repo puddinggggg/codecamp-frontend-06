@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
-import ReactPlayer from "react-player";
 export const Wrapper = styled.div`
   width: 1200px;
-  margin: 50px auto;
+  margin: 50px auto 0;
 `;
 
 export const UseditemWrapper = styled.div`

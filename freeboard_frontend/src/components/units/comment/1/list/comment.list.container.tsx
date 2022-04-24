@@ -7,7 +7,8 @@ import {
   IMutationDeleteBoardCommentArgs,
   IQuery,
   IQueryFetchBoardCommentsArgs,
-} from "../../../../commons/types/generated/types";
+} from "../../../../../commons/types/generated/types";
+
 import CommentListsUI from "./comment.list.presenter";
 import {
   FETCH_BOARD_COMMENTS,

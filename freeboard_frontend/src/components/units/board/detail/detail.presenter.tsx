@@ -72,6 +72,10 @@ export default function BoardDetailUI(props: IBoardWriteUIProps) {
         <S.Button onClick={props.onClickBoardEdit}>수정하기</S.Button>
         <S.Button onClick={props.onClickDelete}>삭제하기</S.Button>
       </S.BottomWrapper>
+      <S.CommentTitleWrapper>
+        <S.CommentTitleImg src="/images/comment.png" />
+        <S.CommentTitleTxt>댓글</S.CommentTitleTxt>
+      </S.CommentTitleWrapper>
     </S.Wrapper>
   );
 }

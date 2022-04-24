@@ -5,7 +5,7 @@ import CommentWriteUI from "./comment.write.presenter";
 import {
   IMutation,
   IMutationCreateBoardCommentArgs,
-} from "../../../../commons/types/generated/types";
+} from "../../../../../commons/types/generated/types";
 
 import { CREATE_COMMENT, FETCH_BOARD_COMMENTS } from "./comment.write.queries";
 

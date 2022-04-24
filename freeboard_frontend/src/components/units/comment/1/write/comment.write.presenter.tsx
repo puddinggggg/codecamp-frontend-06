@@ -6,10 +6,6 @@ export default function CommentWriteUI(props: ICommentWriteUIProps) {
   return (
     <div>
       <S.CommentWrapper>
-        <S.CommentTitleWrapper>
-          <S.CommentTitleImg src="/images/comment.png" />
-          <S.CommentTitleTxt>댓글</S.CommentTitleTxt>
-        </S.CommentTitleWrapper>
         <S.CommentInputWrapper>
           <S.CommentInput
             type="text"

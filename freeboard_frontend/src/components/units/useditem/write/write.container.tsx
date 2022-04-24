@@ -24,6 +24,7 @@ export default function WriteBoard(props: IWriteUseditemProps) {
   const router = useRouter();
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(schema),
+    // 수정할때 defaultvalue가 있어도 빈값처럼 오류뜨는것 3항연산자로 해결
     mode: "onChange",
     // formState 안에 에러가 담겨있다
     // mode onChange하면 버튼 처음에 안눌러도 에러메세지 바로 뜸

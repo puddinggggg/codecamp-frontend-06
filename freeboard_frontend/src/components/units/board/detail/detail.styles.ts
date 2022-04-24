@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import ReactPlayer from "react-player";
 export const Wrapper = styled.div`
   width: 1200px;
-  margin: 50px auto;
+  margin: 50px auto 0;
 `;
 
 export const BoardWrapper = styled.div`
@@ -66,12 +66,11 @@ export const IconWrapper = styled.div`
 export const Link = styled.img`
   width: 27px;
   height: 14px;
-  `;
+`;
 export const Location = styled.img`
   width: 19px;
   height: 27px;
   margin: 0 20px;
-  
 `;
 
 export const Body = styled.div`
@@ -101,10 +100,8 @@ export const Youtube = styled.div`
   height: 240px;
   border: 1px solid #bdbdbd;
   margin: 0 auto 160px;
-  `;
-export const YoutubePlayer = styled(ReactPlayer)`
-
 `;
+export const YoutubePlayer = styled(ReactPlayer)``;
 
 export const LikeWrapper = styled.div`
   display: flex;
@@ -166,4 +163,20 @@ export const Button = styled.button`
     background-color: gold;
     border-color: white;
   } */
+`;
+export const CommentTitleWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 40px 20px;
+`;
+export const CommentTitleImg = styled.img`
+  height: 20px;
+  object-fit: cover;
+  margin-right: 14px;
+`;
+export const CommentTitleTxt = styled.span`
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 27px;
 `;
