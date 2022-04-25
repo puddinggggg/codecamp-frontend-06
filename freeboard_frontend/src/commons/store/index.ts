@@ -5,6 +5,6 @@ import { atom } from "recoil";
 //     default: false,
 // })
 export const accessTokenState = atom({
-    key: "accessTokenState",
-    default: "",
-})
+  key: "accessTokenState",
+  default: "",
+});

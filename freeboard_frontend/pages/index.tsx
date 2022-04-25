@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
+
 const Wrapper = styled.div``;
 const Img = styled.img`
   margin: 0 auto;
@@ -15,6 +16,7 @@ export default function Home() {
   const onClickMove = () => {
     router.push("/boards");
   };
+
   return (
     <Wrapper>
       <div>이미지를 클릭하시면 게시판으로 이동합니다.</div>
