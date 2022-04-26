@@ -4,7 +4,7 @@ import CommentLists from "../../../src/components/units/comment/1/list/comment.l
 export default function ProductDetailPage() {
   return (
     <div>
-      <UseditemDetail />;
+      <UseditemDetail />
       <CommentWrite />
       <CommentLists />
     </div>

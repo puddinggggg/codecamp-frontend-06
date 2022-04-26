@@ -26,9 +26,9 @@ export default function LayoutNavigation() {
   function goFirebase() {
     router.push("/firebase");
   }
-  // function goMarket(){
-  //   router.push("/market");
-  // }
+  function goMarket() {
+    router.push("/useditem");
+  }
   // function goMypage(){
   //   router.push("/mypage");
   // }
@@ -43,7 +43,7 @@ export default function LayoutNavigation() {
         <MenuBar> ｜ </MenuBar>
         <Menu onClick={goFirebase}>파이어베이스</Menu>
         <MenuBar> ｜ </MenuBar>
-        <Menu>장터</Menu>
+        <Menu onClick={goMarket}>장터</Menu>
         <MenuBar> ｜ </MenuBar>
         <Menu>마이 페이지</Menu>
         <MenuBar> ｜ </MenuBar>

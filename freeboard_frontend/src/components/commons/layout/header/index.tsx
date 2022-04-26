@@ -45,6 +45,7 @@ export default function LayoutHeader() {
 
   function goHome() {
     router.push("/boards");
+    console.log(accessToken);
   }
   function onClicklogin() {
     router.push("/login");
@@ -54,7 +55,6 @@ export default function LayoutHeader() {
   }
   const onClickLogOut = async () => {
     try {
-      localStorage.removeItem("accessToken");
       setAccessToken("");
       alert("로그아웃완료");
     } catch (error) {

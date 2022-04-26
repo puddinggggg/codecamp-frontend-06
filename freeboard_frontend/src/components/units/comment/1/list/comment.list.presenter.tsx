@@ -72,7 +72,7 @@ export default function CommentListsUI(props: ICommentListsUIProps) {
                   <S.CommentDate>{el.createdAt.substr(0, 10)}</S.CommentDate>
                 </S.ColumnFlexWrapper>
               </S.CommentList>
-            ))}
+            )) || <div>　</div>}
           </InfiniteScroll>
         </S.CommentLists>
       </S.Wrapper>

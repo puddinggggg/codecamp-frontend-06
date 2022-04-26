@@ -44,7 +44,16 @@ export default function UseditemDetailUI(props: IUseditemDetailUIProps) {
             </S.PickWrapper>
           </S.Mid>
           <S.Body>
-            <div>이미지슬릭</div>
+            <S.ImgWrapper>
+              {props.data?.fetchUseditem.images
+                ?.filter((el: string) => el)
+                .map((el: string) => (
+                  <S.Image
+                    key={el}
+                    src={`https://storage.googleapis.com/${el}`}
+                  />
+                ))}
+            </S.ImgWrapper>
             <S.Contents>{props.data?.fetchUseditem.contents}</S.Contents>
             <S.Tag>태그자리</S.Tag>
           </S.Body>

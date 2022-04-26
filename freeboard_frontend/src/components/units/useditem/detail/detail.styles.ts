@@ -84,6 +84,8 @@ export const Body = styled.div`
   width: 100%;
   min-height: 800px;
 `;
+export const ImgWrapper = styled.div``;
+export const Image = styled.img``;
 export const NameWrapper = styled.div`
   display: flex;
   flex-direction: column;
