@@ -7,3 +7,11 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+const FETCH_USER_LOGGED_IN = gql`
+  query fetchUserLoggedIn {
+    fetchUserLoggedIn {
+      email
+      name
+    }
+  }
+`;

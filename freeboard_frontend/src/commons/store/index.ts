@@ -1,10 +1,14 @@
 import { atom } from "recoil";
 
-// export const isEditState = atom({
-//     key: "isEditState",
-//     default: false,
-// })
+export const isLoadedState = atom({
+  key: "isLoadedState",
+  default: true,
+});
 export const accessTokenState = atom({
   key: "accessTokenState",
   default: "",
+});
+export const visitedPageState = atom({
+  key: "visitedPageState",
+  default: "/",
 });

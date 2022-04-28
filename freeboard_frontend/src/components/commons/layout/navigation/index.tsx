@@ -49,7 +49,6 @@ export default function LayoutNavigation() {
         <MenuBar> ｜ </MenuBar>
         <Menu onClick={onClickAPI}>강아지</Menu>
       </Wrapper>
-      ;
     </div>
   );
 }

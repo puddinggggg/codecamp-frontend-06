@@ -3,6 +3,13 @@ import * as S from "./write.styles";
 import { IUseditemWriteUIProps } from "./write.types";
 import { v4 as uuidv4 } from "uuid";
 import Upload from "../../../commons/upload/upload.container";
+import DaumPostcode from "react-daum-postcode";
+import { useEffect } from "react";
+import { Modal } from "antd";
+
+// declare const window: typeof globalThis & {
+//   kakao: any;
+// };
 
 export default function UseditemWriteUI(props: IUseditemWriteUIProps) {
   // export default function BoardWriteUI({isActive}props: IBoardWriteUIProps) {
@@ -10,6 +17,11 @@ export default function UseditemWriteUI(props: IUseditemWriteUIProps) {
   // const {isActive,} = props; // 이러면 밑에서 props 안붙여도 됨 위 주석처럼 해도 가능한데 받아올 데이터가 많으면 지저분해질 수 있다.
   return (
     <div>
+      {props.isVisible && (
+        <Modal visible={true} onCancel={props.onClickAddressCode} footer={[]}>
+          <DaumPostcode onComplete={props.afterAddressSearch} />
+        </Modal>
+      )}
       <S.OutWrapper>
         <form
           onSubmit={props.handleSubmit(
@@ -17,7 +29,7 @@ export default function UseditemWriteUI(props: IUseditemWriteUIProps) {
           )}
         >
           <S.Wrapper>
-            <S.Head>상품{props.isEdit ? " 수정" : " 등록"}하기</S.Head>
+            <S.Title>상품{props.isEdit ? " 수정" : " 등록"}하기</S.Title>
 
             <S.MenuWrapper>
               <S.MenuTxt>상품명</S.MenuTxt>
@@ -45,7 +57,7 @@ export default function UseditemWriteUI(props: IUseditemWriteUIProps) {
               <S.MenuTxt>상품설명</S.MenuTxt>
               <S.ContentInput
                 placeholder="상품 설명을 작성해주세요."
-                {...props.register("contents")}
+                onChange={props.onChangeContents}
                 defaultValue={props.data?.fetchUseditem.contents || ""}
               />
               <S.Error>{props.formState.errors.contents?.message}</S.Error>
@@ -62,43 +74,61 @@ export default function UseditemWriteUI(props: IUseditemWriteUIProps) {
             </S.MenuWrapper>
             <S.MenuWrapper>
               <S.MenuTxt>태그입력</S.MenuTxt>
-              <S.Input
+              {/* <S.Input
+                {...props.register("tags")}
+                // onKeyUp={props.onKeyUpHash}
                 placeholder="#태그 #태그 #태그"
-                // onChange={props.onChangeContents}
-                // defaultValue={props.data?.fetchBoard.contents}
-              />
+                defaultValue={props.data?.fetchUseditem.tags}
+              /> */}
+              {/* <span>
+                {props.hashArr.map((el, index) => (
+                  <span key={index}>{el}</span>
+                ))}
+              </span> */}
             </S.MenuWrapper>
-            {/* <S.AddressWrapper>
-            <S.AddressLeftWrapper>
-            <S.MenuTxt>거래위치</S.MenuTxt>
-            <div>지도자리</div>
-            </S.AddressLeftWrapper>
+            <S.AddressWrapper>
+              <S.AddressLeftWrapper>
+                <S.MenuTxt>거래위치</S.MenuTxt>
+                <S.Map id="map"></S.Map>
+                <div>지도자리</div>
+              </S.AddressLeftWrapper>
 
-            <S.AddressRightWrapper>
-              <S.RightInnerWrapper>
-            <S.MenuTxt>GPS</S.MenuTxt>
-            <div>위도경도자리</div>
-              </S.RightInnerWrapper>
-              <S.RightInnerWrapper>
-            <S.MenuTxt>주소</S.MenuTxt>
-            <S.AddressDetailInput
-              readOnly
-              value={
-                props.address ||
-                props.data?.fetchBoard.boardAddress?.address ||
-                ""
-              }
-              />
-            <S.AddressDetailInput
-              onChange={props.onChangeAddressDetail}
-              defaultValue={
-                props.data?.fetchBoard.boardAddress?.addressDetail || ""
-              }
-              />
-              </S.RightInnerWrapper>
+              <S.AddressRightWrapper>
+                <S.RightInnerWrapper>
+                  <S.MenuTxt>주소</S.MenuTxt>
+                  <S.AddressBtn
+                    type="button"
+                    onClick={props.onClickAddressCode}
+                  >
+                    주소 검색
+                  </S.AddressBtn>
+
+                  <S.AddressInput
+                    readOnly
+                    value={
+                      props.address ||
+                      props.data?.fetchUseditem?.useditemAddress?.address ||
+                      ""
+                    }
+                  />
+                  <S.AddressInput
+                    onChange={props.onChangeAddressDetail}
+                    defaultValue={
+                      props.data?.fetchUseditem?.useditemAddress
+                        ?.addressDetail || ""
+                    }
+                  />
+                </S.RightInnerWrapper>
               </S.AddressRightWrapper>
-          </S.AddressWrapper> */}
-
+            </S.AddressWrapper>
+            <button
+              type="button"
+              onClick={() => {
+                console.log(props.address);
+              }}
+            >
+              dd
+            </button>
             <S.MenuWrapper>
               <S.MenuTxt>사진첨부</S.MenuTxt>
 
@@ -113,19 +143,10 @@ export default function UseditemWriteUI(props: IUseditemWriteUIProps) {
                 ))}
               </S.ImgInnerWrapper>
             </S.MenuWrapper>
-            <S.MenuWrapper>
-              <S.MenuTxt>메인 사진 설정</S.MenuTxt>
-              <S.MainSetInnerWrapper>
-                <S.RadioWrapper>
-                  <S.Radios type="radio" name="radio-main" id="image1" />
-                  사진1
-                </S.RadioWrapper>
-                <S.Radios type="radio" name="radio-main" id="image2" />
-                사진2
-              </S.MainSetInnerWrapper>
-            </S.MenuWrapper>
+
             <S.SubmitBtn
-              onClick={props.isEdit ? props.onClickUpdate : props.onClickSubmit}
+              // type="button"
+              // onClick={props.isEdit ? props.onClickUpdate : props.onClickSubmit}
               isActive={props.isActive}
             >
               {props.isEdit ? "수정" : "등록"}하기

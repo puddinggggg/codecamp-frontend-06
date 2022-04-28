@@ -18,7 +18,7 @@ export default function MapUseditemPage(props: IMapUseditemPageProps) {
                 <S.BestBottomLeft>
                   <S.BestRemarks>2019 LTE 32GB</S.BestRemarks>
 
-                  <S.BestUseditemPrice>240,120원</S.BestUseditemPrice>
+                  <S.BestUseditemPrice>240120원</S.BestUseditemPrice>
                 </S.BestBottomLeft>
 
                 <S.BestBottomRight>
@@ -44,11 +44,12 @@ export default function MapUseditemPage(props: IMapUseditemPageProps) {
             <S.SearchBtn>검색 </S.SearchBtn>
           </S.SearchWrapper>
         </S.MidWrapper>
-        <S.ListWrapper>
+        <S.ListWrapper id="pageContent">
           <InfiniteScroll
             pageStart={0}
             loadMore={props.onLoadMore}
             hasMore={true}
+            useWindow={false}
             loader={
               <div className="loader" key={0}>
                 Loading ...

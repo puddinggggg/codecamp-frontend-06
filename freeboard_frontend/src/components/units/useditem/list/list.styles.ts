@@ -110,10 +110,10 @@ export const SearchWrapper = styled.div`
 //   }
 // `;
 export const MidWrapper = styled.div`
-display:flex;
+  display: flex;
 `;
 export const MenuWrapper = styled.div`
-display:flex;
+  display: flex;
 `;
 export const MidMenu = styled.div``;
 export const DateSearch = styled.div`
@@ -140,6 +140,8 @@ export const SearchBtn = styled.button`
 export const ListWrapper = styled.div`
   border-top: 2px solid gray;
   border-bottom: 2px solid gray;
+  height: 700px;
+  overflow: auto;
 `;
 
 export const HeaderNumberColumn = styled.div`
@@ -201,26 +203,28 @@ export const DateColumn = styled.div`
 `;
 
 export const PaginationWrapper = styled.div`
-display:flex;
-justify-content: center;
-padding: 10px;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
 `;
 
 export const PageArrow = styled.span`
   cursor: pointer;
-  font-size:20px;
-  line-height:25px;
-  `;
+  font-size: 20px;
+  line-height: 25px;
+`;
 
 export interface ICurrentProps {
   current: boolean;
 }
 export const Pages = styled.span`
   cursor: pointer;
-  
-  color: ${(props: ICurrentProps) => (props.current === true ? "white" : "black")};
-  background-color: ${(props: ICurrentProps) => (props.current !== true ? "white" : "gray")};
-  font-size:15px;
+
+  color: ${(props: ICurrentProps) =>
+    props.current === true ? "white" : "black"};
+  background-color: ${(props: ICurrentProps) =>
+    props.current !== true ? "white" : "gray"};
+  font-size: 15px;
   margin: 0 5px;
 `;
 

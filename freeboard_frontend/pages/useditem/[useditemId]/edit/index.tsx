@@ -11,14 +11,14 @@ const FETCH_USED_ITEM = gql`
       tags
       images
       pickedCount
-      useditemAddress{
-        _id
-        zipcode
-        address
-        addressDetail
-        lat
-        lng
-      }
+      # useditemAddress{
+      #   _id
+      # zipcode
+      #   address
+      #   addressDetail
+      #   lat
+      #   lng
+      # }
     }
   }
 `;

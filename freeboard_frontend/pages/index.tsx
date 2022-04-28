@@ -4,11 +4,20 @@ import { useRouter } from "next/router";
 const Wrapper = styled.div``;
 const Img = styled.img`
   margin: 0 auto;
-  width: 100%;
-  height: 100%;
+  width: 30%;
+  height: 30%;
   object-fit: cover;
   background-image: url("https://postfiles.pstatic.net/MjAyMjA0MDRfMTcy/MDAxNjQ5MDYxNDUxMzA2.4BwLaV717Oyc10DEXgYLwtVVbdujeG6e8XI-ISMHw6sg.Bbdn0rxqzZnp7mHLgfikzZHgLW1hlGK0jzdPjRUdi9sg.JPEG.cicls/pudding.jpg?type=w773");
   cursor: pointer;
+
+  @media (min-width: 768px) {
+    width: 50%;
+    height: 50%;
+  }
+  @media (min-width: 991px) {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export default function Home() {

@@ -1,55 +1,60 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, MouseEvent } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 import { IQuery } from "../../../../commons/types/generated/types";
 // 컨테이너
-export interface IWriteBoardProps {
+export interface IWriteUseditemProps {
   isEdit: boolean;
   data?: any;
+  register: UseFormRegisterReturn;
 }
 export interface ISubmitVariables {
-  name: string;
-  remarks: string;
-  contents: string;
-  price: number;
-}
-export interface IUpdateBoardInput {
-  title?: string;
+  name?: string;
   contents?: string;
-  youtubeUrl?: string;
-  boardAddress?: {
-    addressCode?: string;
+  remarks?: string;
+  price?: number;
+  images?: string[];
+  tags?: string[];
+  useditemAddress?: {
+    address?: string;
+    addressDetail?: string;
+  };
+}
+
+export interface IUpdateUseditemInput {
+  name?: string;
+  contents?: string;
+  remarks?: string;
+  price?: number;
+  images?: string[];
+  tags?: string[];
+  useditemAddress?: {
     address?: string;
     addressDetail?: string;
   };
 }
 // 프리젠터
-export interface IBoardWriteUIProps {
-  isActive: boolean;
-  writerError: string;
-  passwordError: string;
-  titleError: string;
-  contentsError: string;
-  onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeTitle: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  onChangeYoutube: (event: ChangeEvent<HTMLInputElement>) => void;
+export interface IUseditemWriteUIProps {
   onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
-  onClickAddressCode: () => void;
-  afterAddressSearch: (data: any) => void;
-  onClickSubmit: () => void;
-  onClickUpdate: () => void;
+  onClickAddressCode: (event: MouseEvent<HTMLButtonElement>) => void;
+  isActive: boolean;
   isEdit: boolean;
-  data?: Pick<IQuery, "fetchBoard">;
   isVisible: boolean;
   address: string;
-  addressDetail: string;
-  zipcode: string;
+  onClickSubmit: (data: any) => void;
+  onClickUpdate: (data: any) => void;
+  data?: Pick<IQuery, "fetchUseditem">;
+  register: UseFormRegisterReturn;
+
   onChangeFile: (event: ChangeEvent<HTMLInputElement>) => void;
-  onClickImage: () => void;
   onChangeFileUrls: (fileUrls: string, index: number) => void;
   fileRef: any;
   imageUrl: string | undefined;
   fileUrls: string[];
+
+  // onClickAddressCode: () => void;
+  // afterAddressSearch: (data: any) => void;
+  // address: string;
+  // addressDetail: string;
 }
 
 // 스타일

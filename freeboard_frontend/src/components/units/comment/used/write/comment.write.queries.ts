@@ -40,21 +40,16 @@ export const UPDATE_COMMENT = gql`
 `;
 
 export const FETCH_USED_ITEM_COMMENTS = gql`
-query fetchUseditemQuestions(
-page: Int,
-useditemId: ID!
-){
-  fetchUseditemQuestions(
-    page: $page, useditemId: $useditemId
-  ){
-    _id
-    contents
-    createdAt
-    user{
+  query fetchUseditemQuestions($page: Int, $useditemId: ID!) {
+    fetchUseditemQuestions(page: $page, useditemId: $useditemId) {
       _id
-      name
-      email
+      contents
+      createdAt
+      user {
+        _id
+        name
+        email
+      }
     }
   }
-}
 `;

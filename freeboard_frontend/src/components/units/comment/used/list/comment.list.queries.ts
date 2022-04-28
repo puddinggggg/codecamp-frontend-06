@@ -1,27 +1,22 @@
 import { gql } from "@apollo/client";
 
-export const FETCH_BOARD_COMMENTS = gql`
-  query fetchBoardComments($boardId: ID!, $page: Int) {
-    fetchBoardComments(boardId: $boardId, page: $page) {
+export const FETCH_USED_ITEM_COMMENTS = gql`
+  query fetchUseditemQuestions($page: Int, $useditemId: ID!) {
+    fetchUseditemQuestions(page: $page, useditemId: $useditemId) {
       _id
-      writer
       contents
       createdAt
-      rating
+      user {
+        _id
+        name
+        email
+      }
     }
   }
 `;
 
-export const DELETE_BOARD_COMMENT = gql`
-  mutation deleteBoardComment($password: String, $boardCommentId: ID!) {
-    deleteBoardComment(password: $password, boardCommentId: $boardCommentId)
+export const DELETE_USED_ITEM_COMMENT = gql`
+  mutation deleteUseditemQuestion($useditemQuestionId: ID!) {
+    deleteUseditemQuestion(useditemQuestionId: $useditemQuestionId)
   }
-`;
-
-export const UPDATE_BOARD_COMMENT = gql`
-mutation updateBoardComment($updateBoardCommentInput: UpdateBoardCommentInput!,$password: String, $boardCommentId: ID!){
-  updateBoardComment(updateBoardCommentInput: $updateBoardCommentInput, password: $password,boardCommentId: $boardCommentId){
-    _id
-  }
-}
 `;

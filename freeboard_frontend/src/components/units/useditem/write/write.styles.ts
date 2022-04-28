@@ -1,9 +1,14 @@
 import styled from "@emotion/styled";
-import { ISubmitBtnProps } from "./write.types"
+import { ISubmitBtnProps } from "./write.types";
+import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
 // styled emotion 사용시 선언 첫 글자는 반드시 대문자
 export const OutWrapper = styled.div`
-display:flex;
-justify-content:center;`;
+  display: flex;
+  justify-content: center;
+`;
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -13,7 +18,7 @@ export const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
 `;
-export const Head = styled.div`
+export const Title = styled.div`
   font-family: "Noto Sans CJK KR";
   font-style: normal;
   font-weight: 700;
@@ -50,7 +55,7 @@ export const Error = styled.div`
 export const ContentWrapper = styled.div`
   padding-top: 40px;
 `;
-export const ContentInput = styled.textarea`
+export const ContentInput = styled(ReactQuill)`
   width: 996px;
   height: 480px;
   border: 1px solid #bdbdbd;
@@ -77,7 +82,11 @@ export const RightInnerWrapper = styled.div`
   flex-direction: column;
   padding-top: 12px;
 `;
-export const AddressDetailInput = styled.input`
+export const Map = styled.div`
+  width: 400px;
+  height: 300px;
+`;
+export const AddressInput = styled.input`
   width: 996px;
   height: 52px;
   background: #ffffff;
@@ -86,10 +95,13 @@ export const AddressDetailInput = styled.input`
   margin-top: 16px;
   margin-bottom: 30px;
   padding: 14px 16px;
-
 `;
 
-
+export const AddressBtn = styled.button`
+  width: 400px;
+  height: 150px;
+  cursor: pointer;
+`;
 export const ImgInnerWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -106,27 +118,26 @@ export const Imgs = styled.img`
 `;
 
 export const MainSetInnerWrapper = styled.div`
-display: flex;
-flex-direction: row;
+  display: flex;
+  flex-direction: row;
 `;
 export const RadioWrapper = styled.div`
-margin-right: 22px;
+  margin-right: 22px;
 `;
 
-export const Radios = styled.input`
-
-`;
+export const Radios = styled.input``;
 export const SubmitBtn = styled.button`
-background: #FFD600;
-width: 179px;
-height: 52px;
-font-family: 'Noto Sans CJK KR';
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 24px;
-padding: 0 8px;
-border: none;
-margin-top: 80px;
-background-color: ${(props: ISubmitBtnProps) => (props.isActive ? "yellow" : "gray")}
+  background: #ffd600;
+  width: 179px;
+  height: 52px;
+  font-family: "Noto Sans CJK KR";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 0 8px;
+  border: none;
+  margin-top: 80px;
+  background-color: ${(props: ISubmitBtnProps) =>
+    props.isActive ? "yellow" : "gray"};
 `;
