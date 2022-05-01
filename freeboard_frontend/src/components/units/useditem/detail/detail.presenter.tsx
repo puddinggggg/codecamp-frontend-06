@@ -1,6 +1,6 @@
 import * as S from "./detail.styles";
 import { IUseditemDetailUIProps } from "./detail.types";
-
+import Dompurify from "dompurify";
 import { Tooltip } from "antd";
 
 export default function UseditemDetailUI(props: IUseditemDetailUIProps) {
@@ -65,6 +65,11 @@ export default function UseditemDetailUI(props: IUseditemDetailUIProps) {
           <S.Button onClick={props.onClickUseditemList}>목록으로</S.Button>
           <S.Button onClick={props.onClickUseditemEdit}>수정하기</S.Button>
           <S.Button onClick={props.onClickDelete}>삭제하기</S.Button>
+          <S.Button
+            onClick={props.onClickBuyUseditem(props.data?.fetchUseditem._id)}
+          >
+            구입하기
+          </S.Button>
           {/* <S.Button onClick={props.onClickBuyUseditem}>상품구입</S.Button> */}
         </S.BottomWrapper>
       </S.Wrapper>

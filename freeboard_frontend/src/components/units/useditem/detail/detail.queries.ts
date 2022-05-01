@@ -52,3 +52,11 @@ export const PICK_USED_ITEM = gql`
     toggleUseditemPick(useditemId: $useditemId)
   }
 `;
+
+export const BUY_USED_ITEM = gql`
+  mutation createPointTransactionOfBuyingAndSelling($useritemId: ID!) {
+    createPointTransactionOfBuyingAndSelling(useritemId: $useritemId) {
+      _id
+    }
+  }
+`;
