@@ -62,6 +62,8 @@ export const ContentInput = styled(ReactQuill)`
   box-sizing: border-box;
   padding: 14px 16px 0;
 `;
+
+export const HashTag = styled.div``;
 export const AddressWrapper = styled.div`
   display: flex;
   flex-direction: column;

@@ -64,7 +64,7 @@ export default function MapUseditemPage(props: IMapUseditemPageProps) {
                 </S.NumberColumn> */}
                 <S.TitleColumn
                   id={el._id}
-                  onClick={props.onClickUseditemDetail}
+                  onClick={props.onClickUseditemDetail(el)}
                 >
                   {/* {el.name} */}
                   {el.name

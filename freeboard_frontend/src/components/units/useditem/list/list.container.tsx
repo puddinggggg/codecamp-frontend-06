@@ -7,6 +7,7 @@ import {
   IQuery,
   IQueryFetchUseditemsArgs,
 } from "../../../../commons/types/generated/types";
+import { getToday } from "../../../../commons/libraries/utils";
 
 export default function UseditemList() {
   const router = useRouter();
@@ -20,10 +21,22 @@ export default function UseditemList() {
     router.push("/useditem/new");
   }
 
-  function onClickUseditemDetail(event: MouseEvent<HTMLDivElement>) {
-    if (event.target instanceof Element)
-      router.push(`/useditem/${event.target.id}`);
-  }
+  const onClickUseditemDetail =
+    (item) => (event: MouseEvent<HTMLDivElement>) => {
+      const today = JSON.parse(localStorage.getItem("today") || "[]");
+      const temp = today.filter(
+        (el) => el._id === item._id && el.date === getToday()
+      );
+      // 같은 글이 아니거나 같은 날짜가 아닐 경우에만 실행
+      if (temp.length === 0) {
+        const { __typename, ...rest } = item;
+        const aaa = { ...rest, date: getToday() };
+        today.push(aaa);
+        localStorage.setItem("today", JSON.stringify(today));
+      }
+      if (event.target instanceof Element)
+        router.push(`/useditem/${event.target.id}`);
+    };
   function onChangeKeyword(value: string) {
     setKeyword(value);
   }

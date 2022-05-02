@@ -119,17 +119,22 @@ export default function UseditemWriteUI(props: IUseditemWriteUIProps) {
             </S.MenuWrapper>
             <S.MenuWrapper>
               <S.MenuTxt>태그입력</S.MenuTxt>
-              {/* <S.Input
-                {...props.register("tags")}
-                // onKeyUp={props.onKeyUpHash}
-                placeholder="#태그 #태그 #태그"
-                defaultValue={props.data?.fetchUseditem.tags}
-              /> */}
-              {/* <span>
-                {props.hashArr.map((el, index) => (
-                  <span key={index}>{el}</span>
+              <div style={{ display: "flex" }}>
+                {props.hashArr.map((el, idx) => (
+                  <S.HashTag
+                    key={uuidv4()}
+                    onClick={props.onClickDeleteTag(el)}
+                  >
+                    {el}
+                  </S.HashTag>
                 ))}
-              </span> */}
+              </div>
+              <S.Input
+                type="text"
+                placeholder="태그 입력하고 스페이스바"
+                register={props.register("tags")}
+                onKeyUp={props.onKeyUpHash}
+              />
             </S.MenuWrapper>
             <S.AddressWrapper>
               <S.AddressLeftWrapper>

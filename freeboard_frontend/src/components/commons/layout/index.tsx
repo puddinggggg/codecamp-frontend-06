@@ -5,6 +5,7 @@ import LayoutFooter from "./footer";
 import styled from "@emotion/styled";
 import { ReactNode } from "react";
 import { useRouter } from "next/router";
+import LayoutSidebar from "./sidebar";
 const Body = styled.div`
   margin: 0 auto;
 `;
@@ -29,6 +30,7 @@ export default function Layout(props: ILayoutProps) {
       <LayoutNavigation />
       <BodyWrapper>
         <Body>{props.children}</Body>
+        <LayoutSidebar />
       </BodyWrapper>
       <LayoutFooter />
     </div>

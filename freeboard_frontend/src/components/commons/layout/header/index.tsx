@@ -4,7 +4,7 @@ import { HomeOutlined } from "@ant-design/icons";
 import ReloadPoint from "../../reload";
 import { useRecoilState } from "recoil";
 import { accessTokenState } from "../../../../commons/store";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 
 const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
@@ -15,6 +15,11 @@ const FETCH_USER_LOGGED_IN = gql`
         amount
       }
     }
+  }
+`;
+export const LOGOUT_USER = gql`
+  mutation logoutUser {
+    logoutUser
   }
 `;
 const Wrapper = styled.div`
@@ -41,6 +46,7 @@ const SignUp = styled.button``;
 export default function LayoutHeader() {
   const router = useRouter();
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
+  const [logoutUser] = useMutation(LOGOUT_USER);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
 
   function goHome() {
@@ -55,6 +61,7 @@ export default function LayoutHeader() {
   }
   const onClickLogOut = async () => {
     try {
+      logoutUser();
       setAccessToken("");
       alert("로그아웃완료");
     } catch (error) {

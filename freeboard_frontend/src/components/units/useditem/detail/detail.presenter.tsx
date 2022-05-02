@@ -1,7 +1,7 @@
 import * as S from "./detail.styles";
 import { IUseditemDetailUIProps } from "./detail.types";
-import Dompurify from "dompurify";
 import { Tooltip } from "antd";
+import DOMPurify from "dompurify";
 
 export default function UseditemDetailUI(props: IUseditemDetailUIProps) {
   // const commentClickAlert = (event: MouseEvent<HTMLDivElement>) => {
@@ -54,7 +54,19 @@ export default function UseditemDetailUI(props: IUseditemDetailUIProps) {
                   />
                 ))}
             </S.ImgWrapper>
-            <S.Contents>{props.data?.fetchUseditem.contents}</S.Contents>
+
+            {typeof window !== "undefined" ? (
+              <S.Contents
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(
+                    props.data?.fetchUseditem.contents
+                  ),
+                }}
+              ></S.Contents>
+            ) : (
+              <div></div>
+            )}
+
             <S.Tag>태그자리</S.Tag>
           </S.Body>
         </S.UseditemWrapper>

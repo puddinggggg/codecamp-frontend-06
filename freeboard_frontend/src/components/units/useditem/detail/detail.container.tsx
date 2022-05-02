@@ -30,7 +30,7 @@ export default function UseditemDetail() {
     Pick<IMutation, "createPointTransactionOfBuyingAndSelling">,
     IMutationCreatePointTransactionOfBuyingAndSellingArgs
   >(BUY_USED_ITEM);
-  const { data } = useQuery<
+  const { data, refetch } = useQuery<
     Pick<IQuery, "fetchUseditem">,
     IQueryFetchUseditemArgs
   >(FETCH_USED_ITEM, {
@@ -58,16 +58,16 @@ export default function UseditemDetail() {
     });
     alert(`구입완료`);
   };
-  const onClickPick = () => {
-    toggleUseditemPick({
-      variables: { useditemId: String(router.query.useditemId) },
-      refetchQueries: [
-        {
-          query: FETCH_USED_ITEM,
-          variables: { boardId: router.query.useditemId },
-        },
-      ],
-    });
+  const onClickPick = async () => {
+    try {
+      await toggleUseditemPick({
+        variables: { useditemId: String(router.query.useditemId) },
+      });
+      refetch();
+      // alert("이 상품을 찜 했어요!");
+    } catch (error: any) {
+      alert(error.message);
+    }
   };
 
   return (
