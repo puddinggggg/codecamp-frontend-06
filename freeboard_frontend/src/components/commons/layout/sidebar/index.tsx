@@ -83,7 +83,7 @@ export default function LayoutSidebar() {
     const today = JSON.parse(localStorage.getItem("today") || "[]");
     const temp = today.filter((el) => el.date === getToday());
     setTodayView(temp);
-  });
+  }, []);
 
   return (
     <Wrapper>

@@ -1,29 +1,34 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import { useMutation } from "@apollo/client";
+import ProductWriteUI from "./write.presenter";
 import { useRouter } from "next/router";
-import UseditemWriteUI from "./write.presenter";
 
-import { CREATE_USED_ITEM, UPDATE_USED_ITEM } from "./write.queries";
-import { ISubmitVariables, IWriteUseditemProps } from "./write.types";
-
+import { useMutation } from "@apollo/client";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Modal } from "antd";
-import { useForm } from "react-hook-form";
-import { IUpdateUseditemInput } from "../../../../commons/types/generated/types";
+import { useEffect, useState } from "react";
+import { CREATE_USED_ITEM, UPDATE_USED_ITEM } from "./write.queries";
 
 const schema = yup.object({
-  name: yup.string().required("상품명을 입력해주세요."),
-  remarks: yup.string().required("한줄 요약을 입력해주세요."),
-  contents: yup.string().required("상품 설명을 입력해주세요."),
-  price: yup.number().required("판매 가격을 입력해주세요."),
+  name: yup.string().required("상품명 입력"),
+  remarks: yup.string().required("한줄요약 입력"),
+  price: yup.number().required("판매 가격 입력"),
+  contents: yup
+    .string()
+    .min(5, "상품설명을 자세히 입력해주세요.(5자 이상)")
+    .required("상품설명 입력"),
 });
+
 const nonSchema = yup.object({});
-export default function WriteBoard(props: IWriteUseditemProps) {
+
+export default function ProductWrite(props) {
   const router = useRouter();
+  const [createUsedItem] = useMutation(CREATE_USED_ITEM);
+  const [updateUsedItem] = useMutation(UPDATE_USED_ITEM);
+  const [hashArr, setHashArr] = useState([]);
+
   const {
-    handleSubmit,
     register,
+    handleSubmit,
     formState,
     setValue,
     trigger,
@@ -31,52 +36,14 @@ export default function WriteBoard(props: IWriteUseditemProps) {
     reset,
   } = useForm({
     resolver: yupResolver(props.isEdit ? nonSchema : schema),
-    // 수정할때 defaultvalue가 있어도 빈값처럼 오류뜨는것 3항연산자로 해결
     mode: "onChange",
-    // formState 안에 에러가 담겨있다
-    // mode onChange하면 버튼 처음에 안눌러도 에러메세지 바로 뜸
   });
-
-  const [fileUrls, setFileUrls] = useState(["", "", "", "", ""]);
-  // const [hashTag, setHashTag] = useState("");
-  // const [hashArr, setHashArr] = useState([]);
-  const [createUseditem] = useMutation(CREATE_USED_ITEM);
-  const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
-
-  // 에디터
-
-  // 지도주소 관련
-
-  const [isVisible, setIsVisible] = useState(false);
-  const [address, setAddress] = useState("");
-  const [addressDetail, setAddressDetail] = useState("");
-  const onChangeAddressDetail = (event: ChangeEvent<HTMLInputElement>) => {
-    setAddressDetail(event.target.value);
+  const [imageUrls, setImageUrls] = useState(["", "", ""]);
+  const onClickBack = () => {
+    router.back();
   };
-  const onClickAddressCode = () => {
-    setIsVisible((prev) => !prev);
-  };
-  const afterAddressSearch = (data: any) => {
-    setAddress(data.address);
-
-    setIsVisible(false);
-    console.log(data.address);
-  };
-  useEffect(() => {
-    setAddress(props.data?.fetchUseditem?.useditemAddress?.address);
-  }, [props.data]);
-
-  // 태그 관련
-  const [hashArr, setHashArr] = useState([]);
-  // const onKeyUpHash = (event) => {
-  //   if (event.KeyCode === 32 && event.target.value !== " ") {
-  //     setHashArr([...hashArr, "#" + event.target.value]);
-  //     event.target.value = "";
-  //   }
-  // };
-  const onClickSubmit = async (data: ISubmitVariables) => {
-    console.log(data);
-    console.log("데이타콘솔");
+  // 상품 등록하기
+  const onClickSubmit = async (data) => {
     if (data.tags) {
       data.tags = data.tags
         .toString()
@@ -84,45 +51,45 @@ export default function WriteBoard(props: IWriteUseditemProps) {
         .split("#")
         .filter((e) => e !== "");
     }
+
     try {
-      const result = await createUseditem({
+      const result = await createUsedItem({
         variables: {
           createUseditemInput: {
             name: data.name,
             remarks: data.remarks,
             contents: data.contents,
-            price: Number(data.price),
+            price: parseInt(data.price),
             tags: hashArr,
-            images: fileUrls,
+            images: imageUrls,
             useditemAddress: {
-              address,
-              addressDetail,
+              zipcode: data.zipcode,
+              address: data.address,
+              addressDetail: data.addressDetail,
             },
           },
         },
       });
-
-      Modal.success({ content: "상품 등록에 성공하였습니다!" });
-      console.log("리절트콘솔", result);
-      router.push(`/useditem/${result.data.createUseditem._id}`);
-    } catch (error: any) {
-      Modal.error({ content: error.message });
-      console.log("에러", error);
-      console.log("에러메시지", error.message);
+      alert("상품 등록에 성공하였습니다.");
+      router.push(`useditem/${result.data.createUseditem._id}`);
+    } catch (error) {
+      alert(error.message);
     }
   };
+
+  // 상품 수정하기
   const onClickUpdate = async (data) => {
-    // const updateUseditemInput: IUpdateUseditemInput = {};
-    // if (data.name) updateUseditemInput.name = data.name;
-    // if (data.contents) updateUseditemInput.contents = data.contents;
     const updateVariables = {
       name: data.name ? data.name : props.data?.name,
       remarks: data.remarks ? data.remarks : props.data?.remarks,
       contents: data.contents ? data.contents : props.data?.contents,
-      price: data.price ? Number(data.price) : Number(props.data?.price),
+      price: data.price ? parseInt(data.price) : parseInt(props.data?.price),
       tags: hashArr,
-      images: fileUrls,
+      images: imageUrls,
       useditemAddress: {
+        zipcode: data.zipcode
+          ? data.zipcode
+          : props.data?.useditemAddress.zipcode,
         address: data.address
           ? data.address
           : props.data?.useditemAddress.address,
@@ -132,30 +99,33 @@ export default function WriteBoard(props: IWriteUseditemProps) {
       },
     };
     try {
-      await updateUseditem({
+      await updateUsedItem({
         variables: {
-          useditemId: router.query.useditemId,
           updateUseditemInput: updateVariables,
+          useditemId: String(router.query.useditemId),
         },
       });
-      Modal.success({ content: "상품 수정에 성공하였습니다!" });
-      router.push(`/useditem/${router.query.useditemId}`);
-    } catch (error: any) {
-      Modal.error({ content: error.message });
-      // console.log("에러", error);
-      // console.log("에러메시지", error.message);
-      // 에러 any 처리 말고 해결법 뭐가 좋을까?
+      alert("상품 수정에 성공하였습니다.");
+      router.push(`useditem/${router.query.useditemId}`);
+    } catch (error) {
+      alert(error.message);
     }
   };
-  const onChangeFileUrls = (fileUrl: string, index: number) => {
-    const newFileUrls = [...fileUrls];
-    newFileUrls[index] = fileUrl;
-    setFileUrls(newFileUrls);
-  };
+
+  // 에디터 입력 값 form으로 넘기기
   const onChangeContents = (value: string) => {
     setValue("contents", value === "<p><br></p>" ? "" : value);
     trigger("contents");
   };
+
+  // 이미지 업로드
+  const onChangeFileUrls = (fileUrl: string, index: number) => {
+    const newFileUrls = [...imageUrls];
+    newFileUrls[index] = fileUrl;
+    setImageUrls(newFileUrls);
+  };
+
+  // 수정 진입시 초기값 설정
   useEffect(() => {
     // 상품설명
     reset({ contents: props.data?.contents });
@@ -165,9 +135,11 @@ export default function WriteBoard(props: IWriteUseditemProps) {
     }
     // 이미지
     if (props.data?.images?.length) {
-      setFileUrls([...props.data?.images]);
+      setImageUrls([...props.data?.images]);
     }
   }, [props.data]);
+
+  // 해쉬태그
   const onKeyUpHash = (event) => {
     if (event.keyCode === 32 && event.target.value !== " ") {
       setHashArr([...hashArr, "#" + event.target.value]);
@@ -181,26 +153,20 @@ export default function WriteBoard(props: IWriteUseditemProps) {
   };
 
   return (
-    <UseditemWriteUI
-      isActive={formState.isValid}
-      isVisible={isVisible}
-      handleSubmit={handleSubmit}
-      register={register}
-      formState={formState}
-      getValues={getValues}
-      reset={reset}
-      onChangeContents={onChangeContents}
-      onClickSubmit={onClickSubmit}
-      onClickUpdate={onClickUpdate}
+    <ProductWriteUI
       isEdit={props.isEdit}
       data={props.data}
+      register={register}
+      handleSubmit={handleSubmit}
+      formState={formState}
+      onClickSubmit={onClickSubmit}
+      onClickUpdate={onClickUpdate}
+      onClickBack={onClickBack}
       onChangeFileUrls={onChangeFileUrls}
-      fileUrls={fileUrls}
-      onChangeAddressDetail={onChangeAddressDetail}
-      address={address}
-      addressDetail={addressDetail}
-      onClickAddressCode={onClickAddressCode}
-      afterAddressSearch={afterAddressSearch}
+      imageUrls={imageUrls}
+      onChangeContents={onChangeContents}
+      setValue={setValue}
+      getValues={getValues}
       onKeyUpHash={onKeyUpHash}
       onClickDeleteTag={onClickDeleteTag}
       hashArr={hashArr}
