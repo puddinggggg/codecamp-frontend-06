@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { gql, request } from "graphql-request";
-export default function BoardDetailPage() {
+export default function BoardDetailPage(props) {
   const router = useRouter();
   return (
     <div>
@@ -11,7 +11,7 @@ export default function BoardDetailPage() {
         <meta property="og:image" content={props.boardData?.images[0]} />
       </Head>
       <div>Welcome to BoardDetailPage.</div>
-      <div>BoardID : {router.query.boardId}</div>
+      <div>BoardID : {router.query.boardid}</div>
     </div>
   );
 }
@@ -33,7 +33,7 @@ export const getServerSideProps = async (context) => {
   const result = await request(
     "https://backend06.codebootcamp.co.kr/graphql",
     FETCH_BOARD,
-    { boardId: context.query.boardId }
+    { boardId: context.query.boardid }
   );
   return {
     props: {
