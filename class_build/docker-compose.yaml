@@ -1,0 +1,7 @@
+version: "3.7"
+
+services:
+  my_frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
